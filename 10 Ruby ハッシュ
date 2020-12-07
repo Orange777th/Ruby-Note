@@ -1,0 +1,109 @@
+10 Ruby ハッシュ
+2020/12/7
+
+ハッシュ（連想配列）
+ハッシュとはキー（key）と値（value）の組み合わせでデータを管理するオブジェクト
+
+ハッシュの作り方
+変数名 = {キー1 => 値1, キー2 => 値2, キー3 => 値3}
+
+例）
+colors = {‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’}  
+
+puts colors
+出力結果
+{‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’}  
+
+
+colors[‘white’]
+出力結果
+しろ
+
+例）ハッシュ内の要素の数増やす方法
+colors = {‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’}  
+
+colors[‘Black’] = ‘くろ’
+puts colors
+出力結果
+{‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’, ‘black’ => ‘くろ’}  
+
+例）値を変更する方法
+colors = {‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’, ‘black’ => ‘くろ’}   
+
+colors[‘black’] = ‘ブラック’
+puts colors
+
+出力結果
+{‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’, ‘black’ => ‘ブラック’}  
+
+
+例）ハッシュ内の要素を取り除く方法
+colors = {‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’, ‘black’ => ‘くろ’}   
+
+colors.delete(‘black’)
+puts colors
+
+出力結果
+{‘red’ => ‘あか’, ‘white’ =>’しろ’, ‘yellow’ => ‘きいろ’}  
+
+
+
+シンボル
+ソースコード上では文字列のように見えますが、内部では整数として扱われます
+シンボルを使ったキーの方が文字列をキーに使用する場合と比べて、Hashのアクセスは早いとされています
+
+例）
+kato = {name: ‘Kato’, live: ‘Tokyo’}
+出力結果
+=> {:name=> ‘Kato’,  :live=> ‘Tokyo’}
+
+puts kato[:name]
+出力結果
+Kato
+  =>nil
+
+例）値を追加する方法
+kato = {name: ‘Kato’, live: ‘Tokyo’}
+kato[:age] = 25
+
+puts kato
+出力結果
+ {:name=> ‘Kato’,  :live=> ‘Tokyo’, :age=>25}
+  =>nil
+
+例）値を取り除く方法
+kato = {name: ‘Kato’, live: ‘Tokyo’, age:25}
+kato.delete(:age)
+
+puts kato
+出力結果
+ {:name=> ‘Kato’,  :live=> ‘Tokyo’}
+  =>nil
+
+例）キーを確認する方法
+kato = {name: ‘Kato’, live: ‘Tokyo’, age:25}
+kato.keys
+
+出力結果
+ [:name,  :live, :age]
+
+例）値を確認する方法
+kato = {name: ‘Kato’, live: ‘Tokyo’, age:25}
+kato.values
+
+出力結果
+ [“Kato”, “Tokyo”, 25]
+
+例）指定したキーが存在するか確認する方法
+kato = {name: ‘Kato’, live: ‘Tokyo’, age:25}
+kato.has_key(:name)
+
+出力結果
+  =>true
+
+例）ハッシュのサイズを確認する方法
+kato = {name: ‘Kato’, live: ‘Tokyo’, age:25}
+kato.size
+
+出力結果
+  =>2
