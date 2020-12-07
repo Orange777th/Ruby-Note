@@ -11,3 +11,4 @@ Udemy「はじめてのRuby on Rails入門-RubyとRailsを基礎から学びWeb�
 Software Design plus
 AMAZON
 （URL）https://www.amazon.co.jp/dp/B077Q8BXHC/ref=cm_sw_em_r_mt_dp_4fHZFb4JGFNFA?_encoding=UTF8&psc=1
+
