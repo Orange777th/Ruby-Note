@@ -4,29 +4,29 @@
 真偽値と論理演算子
 
 真偽値とは
-命題の真偽を示す値のことを指します
+　命題の真偽を示す値のことを指します
 
-Falseまたはnilであれば偽（false）
-それ以外はすべて真（true）
+　Falseまたはnilであれば偽（false）
+　それ以外はすべて真（true）
 
-trueとなる例
-trueそのもの
- true
+　trueとなる例
+　trueそのもの
+ 　true
 
-すべての数値
-1,2,3
+　すべての数値
+　1,2,3
 
-すべての文字列
-‘abc’
-“true”
-‘false’
-
+　すべての文字列
+　‘abc’
+　“true”
+　‘false’
 
 
 
 論理演算子
-&&や||のような論理演算子を使うと、複数の条件を一つにまとめることができます
+　&&や||のような論理演算子を使うと、複数の条件を一つにまとめることができます
 
+　
 論理積（and）
 　a && b（aかつb）
 　aとbがともに真の場合に真を返します
@@ -41,117 +41,117 @@ trueそのもの
 
 
 条件分岐 if
-条件分岐は条件によって処理を変化させたいときに使用します
+　条件分岐は条件によって処理を変化させたいときに使用します
 
 if構文
-If 条件1
-　＃条件1が真の場合に実行したい処理
-elsif 条件2
-　＃条件2が真の場合に実行したい処理
-elsif 条件3
-　＃条件3が真の場合に実行したい処理
-else
-　＃それ以外の処理
-end
+　If 条件1
+　　＃条件1が真の場合に実行したい処理
+　elsif 条件2
+　　＃条件2が真の場合に実行したい処理
+　elsif 条件3
+　　＃条件3が真の場合に実行したい処理
+　else
+　　＃それ以外の処理
+　end
 
-例）テストの成績の出力
-テストの点数scoreによって成績を出力するプログラム
+　例）テストの成績の出力
+　　テストの点数scoreによって成績を出力するプログラム
 
-90点以上：S
-80点以上：A
-70点以上：B
-60点以上：C
-60点未満：D
+　　90点以上：S
+　　80点以上：A
+　　70点以上：B
+　　60点以上：C
+　　60点未満：D
 
-score = 90
-if score >= 90 
-  #scoreの値が90以上のときの処理 　
-  puts ’S’
-elsif score >= 80
-  #scoreの値が80以上のときの処理
-  puts ’A’
-elsif score >= 70
-  #scoreの値が70以上のときの処理
-  puts ’B’
-elsif score >= 60
-  #scoreの値が60以上のときの処理
-  puts ’C’
-else
-  #scoreの値が60未満のときの処理
-  puts ’D’
-end
+　　score = 90
+　　if score >= 90 
+  　　#scoreの値が90以上のときの処理 　
+  　　puts ’S’
+　　elsif score >= 80
+  　　#scoreの値が80以上のときの処理
+  　　puts ’A’
+　　elsif score >= 70
+ 　　#scoreの値が70以上のときの処理
+  　　puts ’B’
+　　elsif score >= 60
+  　　#scoreの値が60以上のときの処理
+  　　puts ’C’
+　　else
+  　　#scoreの値が60未満のときの処理
+  　　puts ’D’
+　　end
 
-score = 90のとき
-  =>A
-score = 82のとき
- =>B
-score = 59のとき
- =>D
+　　score = 90のとき
+  　　=>A
+　　score = 82のとき
+ 　　=>B
+　　score = 59のとき
+　　 =>D
 
 
 
 条件分岐 unless
-unlessはifの反対の意味を指します
+　unlessはifの反対の意味を指します
 
-unless 条件式
-  #条件式が偽のときの処理を実行します
-else
-  #条件式が偽装（false）でない場合、つまり真（true）のときの処理を実行します
-end
+　unless 条件式
+  　#条件式が偽のときの処理を実行します
+　else
+  　#条件式が偽装（false）でない場合、つまり真（true）のときの処理を実行します
+　end
 
-Unlessの場合、elsifに相当するものは存在しません
+　Unlessの場合、elsifに相当するものは存在しません
 
-例）
+　例）
 
-unless n.zero?
-  #nがゼロではない（false）ときの処理
-  puts ‘Not zero’
-else
-  #nがゼロである（true）ときの処理
-  puts ’This is zero’ 
+　　unless n.zero?
+ 　　 #nがゼロではない（false）ときの処理
+　　  puts ‘Not zero’
+　　else
+　　  #nがゼロである（true）ときの処理
+ 　　 puts ’This is zero’ 
 
-n = 3のとき
-’Not Zero’
+　　n = 3のとき
+　　’Not Zero’
 
-n = 0のとき
-’This is zero’
+　　n = 0のとき
+　　’This is zero’
 
 
 
 条件分岐 case
-case対象のオブジェクトや式
-when 値1
-  #値1に一致する場合の処理
-when 値2
-  #値2に一致する場合の処理
-when 値3
-  #値3に一致する場合の処理
-else
-  #どの値も一致しない場合の処理
-end
+　case対象のオブジェクトや式
+　when 値1
+  　#値1に一致する場合の処理
+　when 値2
+  　#値2に一致する場合の処理
+　when 値3
+  　#値3に一致する場合の処理
+　else
+  　#どの値も一致しない場合の処理
+　end
 
-※whenは任意の個数記述することができます
+　※whenは任意の個数記述することができます
 
-例）
-A,B,Cさんの誕生月を出力するプログラム
+　　例）
+　　A,B,Cさんの誕生月を出力するプログラム
 
-A,B,Cさんの誕生月
-A:11月
-B:8月
-C:5月
+　　A,B,Cさんの誕生月
+　　A:11月
+　　B:8月
+　　C:5月
 
-person = ‘B’
-case person
-when ’A’
-  #personに’A’が代入されている場合の処理
-  puts ’11月’
-when ’B’
-  #personに’Bが代入されている場合の処理
-  puts ’8月’
-when ’C’
-#personに’C’が代入されている場合の処理
-  puts ’5月’
-end
+　　person = ‘B’
+　　case person
+　　when ’A’
+  　　#personに’A’が代入されている場合の処理
+  　　puts ’11月’
+　　when ’B’
+  　　#personに’Bが代入されている場合の処理
+ 　　 puts ’8月’
+　　when ’C’
+　　#personに’C’が代入されている場合の処理
+  　　puts ’5月’
+　　end
 
-出力結果
-‘8月’
+　　出力結果
+　　‘8月’
