@@ -2,138 +2,138 @@
 2020/12/5
 
 AWS(Amazon Web Services)
-Amazonが提供しているクラウドコンピューティングサービスを指します
+ Amazonが提供しているクラウドコンピューティングサービスを指します
 
 請求関連アラートの受信
-無料利用枠の使用と請求書のアラートを受け取る設定をすることで請求関連のトラブルを防ぎます
+　無料利用枠の使用と請求書のアラートを受け取る設定をすることで請求関連のトラブルを防ぎます
 
-マイアカウント＞設定＞Billingの設定
-「E メールで PDF 版請求書を受け取る」
-「無料利用枠の使用アラートを受信する」
-「請求アラートを受け取る」
-にチェックを入れて設定を保存します
+　マイアカウント＞設定＞Billingの設定
+　　「E メールで PDF 版請求書を受け取る」
+　　「無料利用枠の使用アラートを受信する」
+　　「請求アラートを受け取る」
+　　にチェックを入れて設定を保存します
 
 
 IAMの設定
-IAM(Identity and Access Management)とは
-AWSリソースへのアクセスを安全に制御するためのウェブサービスでユーザーごとに権限を設定することができます
-AWSを安全に利用するために設定します
+　IAM(Identity and Access Management)とは
+　　AWSリソースへのアクセスを安全に制御するためのウェブサービスでユーザーごとに権限を設定することができます
+　　AWSを安全に利用するために設定します
 
-ユーザーの種類
-ルートユーザー
-　すべてのAWSサービスのとリソースのアクセス権限を持っています
-IAMユーザー
-　アクセスを制限されたユーザー
-　こちらを普段使用します
+　ユーザーの種類
+　　ルートユーザー
+　　　すべてのAWSサービスのとリソースのアクセス権限を持っています
+　　IAMユーザー
+　　　アクセスを制限されたユーザー
+　　　こちらを普段使用します
 
 IAMユーザーの作成方法
-①ダッシュボード＞IAMで検索
-②メニュー＞ユーザー＞ユーザーを追加
-③ユーザー名を入力
-「AWS マネジメントコンソールへのアクセス」にチェック
-④アクセス許可の設定
-ユーザーをグループに追加＋グループの作成をクリック
-⑤グループ名を入力して「AdministratorAccess」にチェックを入れて
-「グループを作成」をクリック
-⑥「次のステップ：タグ」をクリック
-⑦タグを追加せずに「次のステップ：確認」をクリック　
-⑧設定内容を確認して「ユーザーの作成」をクリック
-作成したアカウント専用のURLが発行される
-⑨csvをダウンロードしてアカウントを確認　　　
+　①ダッシュボード＞IAMで検索
+　②メニュー＞ユーザー＞ユーザーを追加
+　③ユーザー名を入力
+　　「AWS マネジメントコンソールへのアクセス」にチェック
+　④アクセス許可の設定
+　　ユーザーをグループに追加＋グループの作成をクリック
+　⑤グループ名を入力して「AdministratorAccess」にチェックを入れて
+　　「グループを作成」をクリック
+　⑥「次のステップ：タグ」をクリック
+　⑦タグを追加せずに「次のステップ：確認」をクリック　
+　⑧設定内容を確認して「ユーザーの作成」をクリック
+　　作成したアカウント専用のURLが発行される
+　⑨csvをダウンロードしてアカウントを確認　　　
 
 
 
 Cloud9のセットアップ
-①ダッシュボードの検索欄で「Cloud9」を入力して検索します
-※英語のページに移動します
+　①ダッシュボードの検索欄で「Cloud9」を入力して検索します
+　　※英語のページに移動します
 
-②リージョンを変更します
-トップメニュー右側のアカウント名の隣りにあるオハイオ（初期値）をクリックして「アジアパシフィック（東京）」を選択してリーションを変更します
-※今いるところから近い場所がおすすめです
+　②リージョンを変更します
+　　トップメニュー右側のアカウント名の隣りにあるオハイオ（初期値）をクリックして「アジアパシフィック（東京）」を選択してリーションを変更します
+　　※今いるところから近い場所がおすすめです
 
-③「Create environment」をクリック
-④NameとDescription（任意）を入力して「Next step」をクリック
-⑤「Environment settings」の「Cost-saving setting」を必ず
-「After 30 minutes(default)」に設定する
-⑥設定内容を確認して「Create environment」をクリックして設定完了です
+　③「Create environment」をクリック
+　④NameとDescription（任意）を入力して「Next step」をクリック
+　⑤「Environment settings」の「Cost-saving setting」を必ず
+　　「After 30 minutes(default)」に設定する
+　⑥設定内容を確認して「Create environment」をクリックして設定完了です
 
 今回の設定内容
-Name：cloud9_rails_v2
-Description：My first project.
-Environment type：EC2
-Instance type：t2.micro
+　Name：cloud9_rails_v2
+　Description：My first project.
+　Environment type：EC2
+　Instance type：t2.micro
 
-Subnet
+　Subnet
 
-Platform：Amazon Linux
-Cost-saving settings：After 30 minutes (default)
-IAM role：AWSServiceRoleForAWSCloud9 (generated)
+　Platform：Amazon Linux
+　Cost-saving settings：After 30 minutes (default)
+　IAM role：AWSServiceRoleForAWSCloud9 (generated)
 
 
 Cloud9の画面
-ダッシュボードに戻るとき
-トップメニュー左側のCloud9のアイコンを選択してして「Go To Your Dashboard」をクリック
+　ダッシュボードに戻るとき
+　　トップメニュー左側のCloud9のアイコンを選択してして「Go To Your Dashboard」をクリック
 
-AWS > AWS Cloud9 > Your environmentsで環境設定を行うことができます
-環境を再度起動するときは「Open IDE」をクリックします
+　AWS > AWS Cloud9 > Your environmentsで環境設定を行うことができます
+　環境を再度起動するときは「Open IDE」をクリックします
 
 ログアウト後にCloud9を再開する方法
-①ダッシュボードの検索欄で「Cloud9」を入力して検索します
-②実行したい環境を選択して「Open IDE」をクリックします
+　①ダッシュボードの検索欄で「Cloud9」を入力して検索します
+　②実行したい環境を選択して「Open IDE」をクリックします
 
-※環境は複数作成することが可能ですが無料枠を超えてしまう可能性があるため注意が必要です
+　※環境は複数作成することが可能ですが無料枠を超えてしまう可能性があるため注意が必要です
 
-※環境で作成したソースコードはCloud9画面のフォルダを右クリックして「Download」選択すればダウンロードをすることができます
+　※環境で作成したソースコードはCloud9画面のフォルダを右クリックして「Download」選択すればダウンロードをすることができます
 
 ソフトウェアのアップデート
-ターミナルで「sudo yum update」を入力します
-アップデートが存在する場合「y」を入力してEnterキーで確定
+　ターミナルで「sudo yum update」を入力します
+　アップデートが存在する場合「y」を入力してEnterキーで確定
 
-sudo:管理者権限で実行することを意味します
-yum(Yellowdog Updater Modified):パッケージを管理するツール
+　sudo:管理者権限で実行することを意味します
+　yum(Yellowdog Updater Modified):パッケージを管理するツール
 
 
 Cloud9でのRubyのバージョン管理（切り替え）方法
 
-RVM(Ruby Version Manager)またはrbenv(Ruby Environment)を使用します
-Cloud9にはRVMがインストールされているためこれを使用します
+　RVM(Ruby Version Manager)またはrbenv(Ruby Environment)を使用します
+　Cloud9にはRVMがインストールされているためこれを使用します
 
-①ターミナルで「rvm -v」と入力してEnterキーを押してRVMのバージョンを確認します
-※Rubyの安定版は2.72（2020/12/5）です
+　①ターミナルで「rvm -v」と入力してEnterキーを押してRVMのバージョンを確認します
+　※Rubyの安定版は2.72（2020/12/5）です
 
-②「rvm list」と入力。確定してRubyバージョンを確認します
+　②「rvm list」と入力。確定してRubyバージョンを確認します
 
-③「rvm install 2.5.1」と入力・確定してRuby(2.5.1)をインストールします
-※「clear」と入力・確定すると画面をクリアすることができます
+　③「rvm install 2.5.1」と入力・確定してRuby(2.5.1)をインストールします
+　※「clear」と入力・確定すると画面をクリアすることができます
 
-④もう一度「rvm -list」と入力してインストールが完了しているかを確認します
-※ruby-2.5.1が表示(2020年12月5日時点)されていれば完了です
+　④もう一度「rvm -list」と入力してインストールが完了しているかを確認します
+　※ruby-2.5.1が表示(2020年12月5日時点)されていれば完了です
 
-=> ruby-2.5.1 [ x86_64 ]
- * ruby-2.6.3 [ x86_64 ]
+　　=> ruby-2.5.1 [ x86_64 ]
+ 　　* ruby-2.6.3 [ x86_64 ]
 
-# => - current
-# =* - current && default
-#  * - default
+　　# => - current
+　　# =* - current && default
+　　#  * - default
 
-上記の場合2.5.1 が有効になっています
-2.6.3 を使用する場合はターミナルで「rvm use 2.5.1」と入力し確定することで有効にすることができます
+　上記の場合2.5.1 が有効になっています
+　2.6.3 を使用する場合はターミナルで「rvm use 2.5.1」と入力し確定することで有効にすることができます
 
-⑤「ruby -v」で有効になっているRubyのバージョンを確認します
+　⑤「ruby -v」で有効になっているRubyのバージョンを確認します
 
-任意のバージョンをデフォルトに設定する方法（2.5.1をデフォルトに設定したいとき）
-ターミナルで「rvm —default use 2.5.1」を入力して確定します
+　任意のバージョンをデフォルトに設定する方法（2.5.1をデフォルトに設定したいとき）
+　ターミナルで「rvm —default use 2.5.1」を入力して確定します
 
 
 
 Ruby on Railsのインストール
 
-Bundler:RubyGemsを管理するツールです
-RubyGems:Rubyで書かれたサードパーティ製のライブラリです
-例）ユーザー認証機能、画像の管理機能、管理画面の機能など
+　Bundler:RubyGemsを管理するツールです
+　RubyGems:Rubyで書かれたサードパーティ製のライブラリです
+　例）ユーザー認証機能、画像の管理機能、管理画面の機能など
 
-①ターミナル「gem -v」でRubyGemsのバージョンを確認します
-※表示されたバージョンは3.0.8でした
+　①ターミナル「gem -v」でRubyGemsのバージョンを確認します
+　※表示されたバージョンは3.0.8でした
 
-②「gem install rails -v 5.2.1 -N」でRails（5.2.1）をインストールします
-※-Nはドキュメントをインストールしないことを意味します
+　②「gem install rails -v 5.2.1 -N」でRails（5.2.1）をインストールします
+　※-Nはドキュメントをインストールしないことを意味します
