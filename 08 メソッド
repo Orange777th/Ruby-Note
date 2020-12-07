@@ -1,0 +1,87 @@
+08 メソッド
+2020/12/7
+
+
+メソッド
+メソッドとは複数の処理を一つにまとめて、扱いやすくしたものです
+クラス内で定義します
+
+メソッド構文
+def メソッド名（引数1、引数2 ・・・）
+　#実行したい処理
+end
+
+※defはdefineの略で定義することを意味します
+引数はメソッドに渡すことでメソッド内で使用することができる変数です
+引数は複数設定することができます
+
+例）Hello Slime!と出力するメソッド
+
+def hello_slime
+ put ‘Hello Slime!’
+end
+
+出力結果
+Hello Slime!
+
+例）2つの数字の掛け算を行い、その結果を返すメソッド
+
+def multiplication(x, y)
+   x * y 
+End
+
+multiplication(2, 5)
+
+出力結果
+10
+
+
+
+戻り値
+戻り値とはメソッドからメソッドの呼び出し元に返す値
+※Rubyでは最後に表記された式が自動的に戻り値として扱われるためreturnは不要です
+
+✗
+def multiplication(x, y)
+   return x * y 
+End
+
+
+
+メソッドの命令規則
+メソッドは小文字の英数で記述します
+単語をつなげるときは単語の間に「_」を入力します
+先頭や語尾に数字を入れること、先頭に「_」を入れることは避けます
+
+
+FizzBuzzのメソッド
+ルール）
+　3で割り切れる数値を引数に渡すと’Fizz’と返します
+　5で割り切れる数値を引数に渡すと’Buzz’と返します
+　15で割り切れる数値を引数に渡すと’FizzBuzz’と返します
+　それ以外の数値は文字列に変えて返します
+
+コード）
+
+def fizz_buzz(x)
+  if x % 15 == 0 
+    puts ‘FizzBuzz’
+  elsif x % 5 == 0
+    puts ‘Buzz’
+  elsif x % 3 == 0
+    puts ‘Fizz’
+  else
+    puts x.to_s
+  end
+end
+fizz_buzz(15)
+出力結果
+　FizzBuzz
+
+fizz_buzz(5)
+出力結果
+　Buzz
+
+fizz_buzz(3)
+出力結果
+　Fizz
