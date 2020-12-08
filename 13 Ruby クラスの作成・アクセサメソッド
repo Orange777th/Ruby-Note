@@ -1,0 +1,150 @@
+13 Ruby クラスの作成・アクセサメソッド
+学習日時：2020年12月8日
+
+
+クラスの例
+ 配列クラス Array
+　 メソッド
+　　 size：配列の長さを確認することができます
+　 　reverse：配列の順番を反転させることができます
+　　 shuffle：配列の順番をランダムにシャッフルすることができます
+
+
+クラスの作成
+　自分でクラスやメソッドを作成することができます
+
+　例）クラス名：Robot
+　　　メソッド名：hello
+　　　　　‘hello’を出力する機能
+
+　　class Robot
+　　　def hello
+　　　　puts ‘hello’
+　　　end
+　　end
+
+　　robot = Robot.new　#クラスのインスタンスを作成
+　　robot.hello　#インスタンス.メソッド名とすることで‘hello’を出力する処理を作成します
+
+
+　　出力結果
+　　hello
+
+　　※クラス名の最初の文字は大文字に設定します
+　　クラスを設計図とするとメソッドは実態になります
+
+
+
+　例）クラス名：Robot
+　　　メソッド名：hello
+　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　class Robot
+　　　def initialize(name)　　#initializeはnewが使用されたときに呼ばれる特殊なメソッドです
+　　　　@name = name
+　　　end
+　　　def hello
+　　　　puts “Hello! #{@name}!”
+　　　end
+　　end
+
+　　slime_robot = Robot.new(’Slime’)　
+　　slime_robot.hello　
+　　
+　　出力結果
+　　　Hello! Slime!
+
+　　spider_robot = Robot.new(’Spider’)　
+　　spider_robot.hello　
+　　
+　　出力結果
+　　　Hello! Spider!
+
+
+　　※newに引数を渡すとinitializeメソッドが呼び出されて、
+　　　initialize(neme)に引数が渡されることで、インスタンス内で使用することができます
+　　※引数nameを@name（インスタンス変数）に代入すると
+　　　インスタンス内であればどこでも使用することができます
+
+
+
+
+
+アクセサメソッド
+　インスタンス変数の値を読み書きするメソッドです
+
+　例）インスタンス変数@nameをクラスの外部から参照・書き換える方法
+　　　クラス名：Robot
+　　　メソッド名：hello
+　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　class Robot
+　　　def initialize(name)　　#initializeはnewが使用されたときに呼ばれる特殊なメソッドです
+　　　　@name = name
+　　　end
+　　　def hello
+　　　　puts “Hello! #{@name}!”
+　　　end
+
+　　　def name　#このメソッドを呼び出すと@nameの値が戻り値として返ってくるため
+　　　　@name　# インスタンス変数@nameをクラスの外部から参照することができます
+　　　end
+
+　　　def name=(value) 　#このメソッドを呼び出すと変数に代入するような形で
+　　　　@name = value　#メソッドを呼び出すことができます
+　　　end
+　　end
+
+　　slime_robot = Robot.new(’Slime’)　
+　　puts slime_robot.name
+　　
+　　出力結果
+　　　Slime
+
+　　slime_robot.name = ‘Wolf’　#@nameの変数が’Wolf’に変化します
+　　puts slime_robot.name
+　　
+　　出力結果
+　　　Wolf
+
+
+
+
+
+　attr_accessorメソッド
+　　このメソッドをインスタンスメソッドを書く必要がなくなります
+　　他の言語ではプロパティと呼ばれています
+
+　　例）インスタンス変数@nameをクラスの外部から参照・書き換える方法
+　　　　　クラス名：Robot
+　　　　　メソッド名：hello
+　　　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　　　class Robot
+
+　　　　　attr_accessor:name　 #このひとつでインスタンス変数を
+　　　　　　　　　　　　　　　　#クラスの外部から参照・書き換えることができます
+　　　　　def initialize(name)　　
+　　　　　　@name = name
+　　　　　end
+　　　　　def hello
+　　　　　　puts “Hello! #{@name}!”
+　　　　　end
+
+　　　　　def name　
+　　　　　　@name　
+　　　　　end
+
+　　　　　def name=(value) 　
+　　　　　　@name = value　
+　　　　　end
+　　　　end
+
+　　　　slime_robot = Robot.new(’Slime’)　
+　　　　puts slime_robot.name
+　　
+　　　　出力結果
+　　　　　Slime
+
+　　　　※読み込みだけしたい場合は「attr_reader:name」、
+　　　　　書き込みだけしたい場合は「attr_writer」と書きます
