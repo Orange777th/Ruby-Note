@@ -1,0 +1,46 @@
+17 Ruby 例外（Exception）
+学習日時：2020年12月8日
+
+
+例外
+　プログラムの実行中に発生した「例外」的な問題のことを指します
+
+
+　例外処理
+　　予期しないエラーが発生したときにユーザーにメッセージを表示したり、特定の処理を行います
+
+　例）数値が0で割られたときにエラーメッセージを表示させるプログラム
+
+　　puts ‘—Please enter an integer. —’
+　　i = gets.to_i　#入力した値を数値として変数iに代入します
+
+　　begin
+　　　puts 5/i
+　　rescue => ex
+　　　puts ‘Error!’
+　　　puts ex.message　　　#エラーメッセージを出力させます
+　　　puts ex.class　　　　　#例外のクラスの種類を出力させます
+　　ensure　　　　　　　　　#ensureでは例外が発生してもしなくても実行する処理を書きます
+　　　puts ‘end’ 
+
+　　end
+
+　　出力結果
+　　—Please enter an integer. —
+　　5
+　　1　
+　　end
+　　
+　　※5は入力した数値で5/5の結果の1を出力しています
+　　endはensureで書いた処理です
+
+
+　　出力結果
+　　—Please enter an integer. —
+　　0
+　　Error!
+　　divided by 0
+　　ZeroDivisionError
+　　end　
+　　
+　　
