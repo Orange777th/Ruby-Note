@@ -1,0 +1,108 @@
+15 Ruby クラスの継承
+学習日時：2020年12月8日
+
+
+クラスの継承
+　親クラス（スーパクラス）の機能を引き継で、子クラス（サブクラス）を作成することができます
+　コードの再利用性や拡張性を高める仕組みです
+
+　例）
+　　【親】ロボットクラス（手、足、会話機能）
+　　　　【子】ヘルパーロボット（＋介護機能）
+　　　　【子】戦闘ロボット（＋武器）
+　　　　【子】デリバリーロボット（＋荷台）
+
+
+
+　例）
+
+　　Class Robot
+　　　def initialize(name)
+　　　　@name = name
+　　　end
+
+　　　def hello
+　　　　puts “Hello! I am #{name}.”
+　　　end
+　　end
+
+　　※クラスを継承する場合は以下のように書きます
+　　class AdminRobot < Robot　#AdminRobotはRobotの機能を継承しています
+　　　def admin_hello
+　　　　puts “Hello! I am #{name}. I am an Administrator”
+　　　end
+　　end
+
+　　aren = AdminRobot.new(‘Aren’) 
+　　aren.hello
+
+　　出力結果
+　　Hello! I am Aren.
+
+　　aren.admin_hello
+
+　　出力結果
+　　Hello! I am Aren I am an Administrator
+
+　　※親クラスから子クラスのメソッドを呼ぶことはできます
+
+
+
+
+クラスのオーバーライド
+　子クラスで親クラスと同じメソッドを上書きすることができます
+
+　例）
+
+　　Class Robot
+　　　def initialize(name)
+　　　　@name = name
+　　　end
+
+　　　def hello
+　　　　puts “Hello! I am #{name}.”
+　　　end
+　　end
+
+
+　　class AdminRobot < Robot　#AdminRobotはRobotの機能を継承しています
+　　　def admin_hello
+　　　　puts “Hello! I am #{name}. I am an Administrator”
+　　　end
+　　　def hello
+　　　　puts “Administrator”
+　　　end
+　　end
+
+　　aren = AdminRobot.new(‘Aren’) 
+　　aren.hello
+
+　　出力結果
+　　Administrator
+
+
+　　Integerの継承関係
+　　　BasicObject←Object←Numeric←Integer
+
+　　クラスの親クラスを確認するにはスーパーメソッドを使用します
+
+　　例）
+　　　Integer.superclass
+
+　　　出力結果
+　　　Numeric
+
+　　　Numeric.superclass
+
+　　　出力結果
+　　　Object
+
+　　　Object.superclass
+
+　　　出力結果
+　　　BasicObject　
+
+　　　Object.superclass
+
+　　　出力結果
+　　　nil
