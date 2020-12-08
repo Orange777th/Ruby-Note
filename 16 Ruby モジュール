@@ -1,0 +1,44 @@
+16 Ruby モジュール
+学習日時：2020年12月8日
+
+
+
+モジュール
+　クラスのようにメソッドや定数をまとめることができます
+　クラスとの違いはインスタンスを作ることができず、継承をすることができません
+　関連するメソッドや定数などをまとめてグループ化したいときなどに使用します
+
+　モジュールの定義
+　　module　モジュール名
+　　　#モジュールの定義（メソッドや定数など）
+　　end
+
+　例）
+　　module Signal
+　　　def self.run
+　　　　puts ‘Run’
+　　　end
+
+　　　def self.stop
+　　　　puts ’Stop’
+　　　end
+
+　　　Signal.run
+　　　Signal.stop
+
+　　　出力結果
+　　　Run
+　　　Stop
+
+　　　signal = Signal.new
+　　　出力結果
+　　　エラー
+　　　※インスタンスを使用することができません
+
+
+　　　module AnotherSignal < Signal
+　　　end
+　　　出力結果
+　　　エラー
+　　　※モジュールを継承をすることができません
+　　　
