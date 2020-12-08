@@ -1,0 +1,109 @@
+14 Ruby クラス変数・クラスメソッド・定数
+学習日時：2020年12月8日
+
+
+クラス変数
+　クラス変数とはクラス自体の値を保持することができる変数
+
+　例）Robotクラスのインスタンスが作成された回数をカウントして出力する方法
+　　　クラス名：Robot
+　　　メソッド名：hello
+　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　class Robot
+　　　@@count = 0　#クラス変数を定義します
+　　　def initialize(name)　　
+　　　　@name = name
+　　　　@@count += 1　#このメソッドが呼び出されたときに@@countの数値に1を足します
+　　　end
+　　　def hello
+　　　　puts “Hello! #{@name}! #{@@count} instance(s)”
+　　　end
+　　end
+
+　　slime_robot = Robot.new(’Slime’)　
+　　slime_robot.hello　
+　　
+　　出力結果
+　　　Hello! Slime! 1 instance(s)
+
+　　spider_robot = Robot.new(’Spider’)　
+　　spider_robot.hello　
+　　
+　　出力結果
+　　　Hello! Spider! 2 instance(s)
+
+　※@@countは各インスタンスごとではなくクラス変数に値が保持されているため値が変化します
+　　
+
+
+
+
+クラスメソッド
+　クラスから直接呼ぶことができるメソッドです
+
+　例）Robotクラスのインスタンスが作成された回数をカウントして出力する方法
+　　　クラス名：Robot
+　　　メソッド名：hello
+　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　class Robot
+　　　@@count = 0　#クラス変数を定義します
+　　　def initialize(name)　　
+　　　　@name = name
+　　　　@@count += 1　#このメソッドが呼び出されたときに@@countの数値に1を足します
+　　　end
+　　　def hello
+　　　　puts “Hello! #{@name}! #{@@count} instance(s)”
+　　　end
+
+　　　def self.info
+　　　　puts “#{@@count} instance(s)”
+　　　end
+　　　　
+　　end
+
+　　Robot.info
+　　
+　　出力結果
+　　0 instance(s) #initializeメソッドが呼ばれていないたカウントは0のままです
+
+
+
+
+クラスと定数
+　定数はすべて大文字で書きます　
+
+
+　例）Robotクラスのインスタンスが作成された回数をカウントして出力する方法
+　　　クラス名：Robot
+　　　メソッド名：hello
+　　　　　引数（入力した名前）を受け取りと“Hello! #{引数}!”を出力する機能
+
+　　class Robot
+　　　REGION = ‘JAPAN’
+　　　@@count = 0　#クラス変数を定義します
+　　　def initialize(name)　　
+　　　　@name = name
+　　　　@@count += 1　#このメソッドが呼び出されたときに@@countの数値に1を足します
+　　　end
+　　　def hello
+　　　　puts “Hello! #{@name}! #{@@count} instance(s)”
+　　　end
+
+　　　def self.info
+　　　　puts “#{@@count} instance(s). Region: #{REGION}”
+　　　end
+　　　　
+　　end
+
+　　Robot.info
+　　
+　　出力結果
+　　0 instance(s). Region: JAPAN
+
+　　※クラス外から定数を確認する方法
+　　puts Robot::REGION
+
+　　出力結果
+　　JAPAN
