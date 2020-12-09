@@ -1,0 +1,141 @@
+19 Ruby テストの自動化
+学習日時：2020年12月9日
+
+重要：プログラムとテストコードはそれぞれ別々のファイルに分けます
+　テストコード内でrequireを利用してテスト対象のプログラムを読み込んでテストを行います
+
+Minitest
+　テストを自動化するためのフレームワークです
+ 
+
+
+Minitestをインストールする方法
+　ターミナルで「$gem install minitest -v 5.10.1」と入力することでインストールができます
+
+
+テストの自動化の手順
+　①テスティングフレームワークのルールに沿って、プログラムの実行結果を検証するプログラムを書きます
+　②①で作成したコードを実行します
+　③テスティングフレームワークが実行結果をチェックし、その結果の正誤を出力します
+
+
+　例） ‘OREN’と’oren.upcaseが等しいかどうかを検証するプログラム
+　　require 'minitest/autorun'  #ライブラリを読み込みます
+
+　　#テストコードの本体です
+　　class EqualTest < Minitest::Test  #SampleTestクラスはMinitest::Testを継承しています
+　　    def test_sample
+　　        assert_equal ‘OREN’, ‘oren’.upcase
+　　    end
+　　end
+  
+  
+
+　　※Minitestの検証メソッド
+　　①aとbが等しい場合、成功とするメソッド
+　　assert_equal b,a
+
+　　②aが真の場合成功、成功とするメソッド
+　　assert a
+
+　　③aが偽の場合成功、成功とするメソッド
+　　refute a
+
+
+
+　　出力結果
+　　Run options: --seed 5914
+
+　　# Running:
+
+　　. #テスト結果（成功）
+
+　　Finished in 0.002189s, 456.7879 runs/s, 456.7879 assertions/s.
+
+　　1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+　　※failuresとerrorsの件数がそれぞれゼロであればテストは成功です
+  
+  
+
+
+　　例）失敗した場合の実行結果　上の例の’oren’を’oran’と書き換えました
+　　Run options: --seed 21583
+
+　　# Running:
+
+　　F #テスト結果（失敗）
+
+　　Finished in 0.002254s, 443.5662 runs/s, 443.5662 assertions/s.
+
+　　  1) Failure:
+　　EqualTest#test_sample [test.rb:8]:
+　　Expected: "OREN"
+　　  Actual: "ORAN"
+
+　　1 runs, 1 assertions, 1 failures, 0 errors, 0 skips
+
+　　※1failuresと表示されているためテストは失敗です
+　　※テストが失敗すると対象のテストメソッドはそれ以上実行されず
+　　　テストメソッドが複数存在する場合は次のテストメソッドの実行に移ります
+　　※実行不可能なコードの場合テスト結果はEになります
+  
+  
+
+
+
+例）FizzBuzzのテスト
+
+　ファイル：fizz_buzz.rb
+　def fizz_buzz(x)
+　  if x % 15 == 0 
+　     'FizzBuzz'
+　  elsif x % 5 == 0
+　     'Buzz'
+　  elsif x % 3 == 0
+　     'Fizz'
+　  else
+　     x.to_s
+　  end
+　end
+
+　※出力結果の文字列は自動的にreturnとして返ってくるためputsは不要です
+
+　require 'minitest/autorun'  #ライブラリを読み込みます
+　require_relative 'fizz_buzz2.rb' #require_relativeの場合、実行するファイルからの相対パス
+
+　#テストコードの本体です
+　class FizzBuzzTest < Minitest::Test  #izzBuzzTestクラスはMinitest::Testを継承しています
+　    def test_fizz_buzz
+　        assert_equal '1',fizz_buzz(1)
+　        assert_equal '2',fizz_buzz(2)
+　        assert_equal 'Fizz',fizz_buzz(3)
+　        assert_equal '4',fizz_buzz(4)
+　        assert_equal 'Buzz',fizz_buzz(5)
+　        assert_equal 'Fizz',fizz_buzz(6)
+　        assert_equal 'FizzBuzz',fizz_buzz(15)
+　    end
+　end
+
+
+　出力結果
+　Run options: --seed 10008
+
+　# Running:
+
+　.
+
+　Finished in 0.001820s, 549.3730 runs/s, 3845.6108 assertions/s.
+
+　1 runs, 7 assertions, 0 failures, 0 errors, 0 skips
+
+　※failuresとerrorsの件数がそれぞれゼロのためテストは成功です
+
+
+
+
+　参考資料
+　プロを目指す人のためのRuby入門 第３章　テスト結果がnilになってしまう
+　(URL)https://teratail.com/questions/246439
+　require と require_relative って何が違うの？
+　(URL)https://qiita.com/ryosk347/items/67f0785907eebf782eb3
+
