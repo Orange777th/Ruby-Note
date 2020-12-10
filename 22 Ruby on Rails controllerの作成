@@ -1,0 +1,119 @@
+22 Ruby on Rails controllerの作成
+学習日時：2020年12月10日
+
+
+controllerの作成
+　「rails generate controller コントローラー名 index」
+
+　　「rails generate controller 」コントローラーを作成せよという命令文です
+　　「index」はユーザーコントローラークラス内に定義するメソッドの名前です
+　　　コントローラークラスにメソッドを定義することをアクションと呼びます
+　　　generateは「g」と省略することが多いです
+
+
+　例）Hello Slimeを表示させるプログラムを作成
+　①「rails g controller users index」と入力・確定すると以下のメッセージが出力されます
+
+　Running via Spring preloader in process 8949
+　      create  app/controllers/users_controller.rb
+ 　      route  get 'users/index'
+ 　     invoke  erb
+ 　     create    app/views/users
+ 　     create    app/views/users/index.html.erb
+　      invoke  test_unit
+　     create    test/controllers/users_controller_test.rb
+ 　     invoke  helper
+ 　     create    app/helpers/users_helper.rb
+ 　     invoke    test_unit
+  　    invoke  assets
+  　    invoke    coffee
+  　    create      app/assets/javascripts/users.coffee
+   　   invoke    scss
+   　   create      app/assets/stylesheets/users.scss
+
+　②プロジェクト名>app>controllers内にusers_controller.rbが作成されます
+　③②のファイルを開きます
+　※コントローラークラスが自動で作成されています
+
+　users_controller.rbの初期状態の中身
+　class UsersController < ApplicationController　#ApplicationControllerを継承しています
+　  def index
+　  end
+　end
+
+
+　ApplicationControllerはusers_controller.rbと同じフォルダにあるapplication_controller.rbにあります
+
+　application_controller.rbの初期状態の中身
+　class ApplicationController < ActionController::Base
+　end
+
+
+　コントローラーはアプリケーションに対する特定のリクエストを受け取って処理する役割を持ちます
+　コントローラークラスに定義するメソッドが作成されています
+
+　class UsersController < ApplicationController　
+　  def index
+　  end
+　end
+
+　renderメソッドはブラウザで表示するコンテンツのレンダリングを行うメソッドです
+　plainオプションを使用するとplainテキストをブラウザに表示させることができます
+
+　
+　class UsersController < ApplicationController　
+　  def index
+　　　render plain: ’Hello Slime’
+　  end
+　end
+
+　render plain: ’Hello Slime’と入力してサーバーを起動します
+　urlの語尾に「users/index」を加えて確定すると「Hello Slime」と表示されます
+
+
+
+
+ルーティングの書き換え
+　urlの語尾の「users/index」はusersコントローラークラスのindexアクションと言う意味です
+　「rails routes」と入力・確定するとURLとアクションの対応表を確認することができます
+
+　例）対応表
+　                   Prefix Verb URI Pattern                                                                              Controller#Action
+              users_index GET  /users/index(.:format)  #   ’Hello Slime’のページです                                                              users#index
+
+
+       rails_service_blob GET  /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
+
+rails_blob_representation GET  /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
+       rails_disk_service GET  /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
+update_rails_disk_service PUT  /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
+     rails_direct_uploads POST /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
+
+
+　※プロジェクト名>config>routs.rbに以上の設定が定義されています
+
+
+　routs.rbの初期状態の中身
+　Rails.application.routes.draw do
+  　get 'users/index'
+  　# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+　end
+
+　「get 'users/index’」は「get ‘users/index’, to: ‘users#index’」の書き換えです
+　「get ‘users/index’, to: ‘users#index’」を「get ‘users, to: ‘users#index’」に書き換えると
+　URLの語尾が「users/index」が「users」に変化します
+
+
+
+
+
+参考ページ
+Ruby on RailsのControllerの使い方 | TechAcademyマガジン
+(URL)https://techacademy.jp/magazine/7237
+Rails ルーティング 基礎 まとめ
+(URL)https://qiita.com/akk11_k/items/a6a21beb2b736ebbc147
+
+
+
+
+
