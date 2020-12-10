@@ -1,0 +1,43 @@
+21 Ruby on Rails 新規プロジェクト
+学習日時：2020年12月10日
+
+
+
+新規Railsプロジェクトの作成手順
+　①ターミナルで「mkdir ruby_projects」と入力してプロジェクトを保存するフォルダを作成します
+　②「cd ruby_projects」と入力して①で作成したフォルダに移動します
+　③「rails  _5.2.1_ new プロジェクト名」と入力して新規プロジェクトを作成します
+
+　バージョン5.2.1をインストールする方法
+　　gem install rails -v 5.2.1
+
+　④l「s」でプロジェクト名のフォルダが作成されていることを確認します
+　⑤「cd  プロジェクト名」と入力してプロジェクトフォルダに移動します
+　⑥「ls」でRailsの雛形がインストールされていることを確認します
+
+　⑦プロジェクトフォルダにあるGemfileをクリックしてファイルを開きます
+　⑧「gem ’sqlite3’」の部分を「gem ’sqlite3’ ,’~> 1.3.6’」と書き換え、ターミナルで「bundle update」と入力・確定します
+　⑨「rails db:create」でデータベースを作成します
+
+　プロジェクトの動作確認を行う方法
+　　①「rails s」と入力して railsのサーバーを立ち上げます
+　　　以下の内容が表示されます
+
+　　=> Booting Puma
+　　=> Rails 5.2.4.4 application starting in development 
+　　=> Run `rails server -h` for more startup options
+　　Puma starting in single mode...
+　　* Version 3.12.6 (ruby 2.6.3-p62), codename: Llamas in Pajamas
+　　* Min threads: 5, max threads: 5
+　　* Environment: development
+　　* Listening on tcp://localhost:8080
+　　Use Ctrl-C to stop
+
+　
+　　②Preview>Preview Running Applicationをクリックします
+　　③ターミナルの横に現れるブラウザ>Pop Cut into New Windowをクリックします
+　　④Railsの’Yay! You’re on Rails!’という画面が出れば完了です
+　　※RailsとRubyのバージョンを必ず確認してください
+　　※URLは第三者に知られないようにしてください　←重要です
+　　
+　　⑤webサーバーを終了するときは「Control + C」を入力してください
