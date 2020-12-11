@@ -35,7 +35,7 @@ controllerの作成
 　③②のファイルを開きます
 　※コントローラークラスが自動で作成されています
 
-　users_controller.rbの初期状態の中身
+　○users_controller.rb
 　class UsersController < ApplicationController　#ApplicationControllerを継承しています
 　  def index
 　  end
@@ -90,17 +90,18 @@ update_rails_disk_service PUT  /rails/active_storage/disk/:encoded_token(.:forma
      rails_direct_uploads POST /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 
-　※プロジェクト名>config>routs.rbに以上の設定が定義されています
+　
+　ルーティングのファイル
+　プロジェクト名>config>routs.rbに以上の対応表の設定が定義されています
 
-
-　routs.rbの初期状態の中身
+　○routs.rb
 　Rails.application.routes.draw do
   　get 'users/index'
   　# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 　end
 
 　「get 'users/index’」は「get ‘users/index’, to: ‘users#index’」の書き換えです
-　「get ‘users/index’, to: ‘users#index’」を「get ‘users, to: ‘users#index’」に書き換えると
+　「get ‘users/index’, to: ‘users#index’」を「get ‘users’, to: ‘users#index’」に書き換えると
 　URLの語尾が「users/index」が「users」に変化します
 
 
