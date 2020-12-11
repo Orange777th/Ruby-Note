@@ -1,8 +1,8 @@
-Ruby-Note
+#Ruby-Note
 Ruby・Ruby on railsの学習用のメモです
 学習開始日：2020年12月5日
 
-学習教材・参考文献
+##学習教材・参考文献
 Udemy「はじめてのRuby on Rails入門-RubyとRailsを基礎から学びWebアプリケーションをネットに公開しよう」
 作成者: 中村祐太様、Proglusプログラミング教室様
 (URL)https://www.udemy.com/share/101WM4BEsYdVpRQnw=/
