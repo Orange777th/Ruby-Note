@@ -1,0 +1,76 @@
+23 Ruby on Rails View
+学習日時：2020年12月11日
+
+
+
+View
+
+　viewのファイルの場所
+　　プロジェクト名>app>views>コントローラー名>アクション名.html.erb
+
+　ERB(Embededded Ruby)
+　　htmlの中にRubyのプログラムを埋め込むことができます
+　　テンプレートエンジンと呼ぶこともあります
+
+
+　index.html.erb
+　<h1>Users#index</h1>
+　<p>Find me in app/views/users/index.html.erb</p>
+
+
+　以上のコードを以下のように書き換えると’Hello Slime’と書かれたページが開きます
+　○index.html.erb
+　<p>Hello Slime</p>
+
+　　
+　○users_controller.rb
+　class UsersController < ApplicationController　
+　  def index
+　　　#render plain: ’Hello Slime’
+　  end
+　end
+
+　UsersControllerのindexアクションが呼びだされたときに
+　index（アクション名）.html.erbが自動的に使用されます
+
+
+
+
+　HTML内にRubyのプログラムを埋め込む方法
+　　Rubyのプログラムは「<% %>」中に記述します
+　　「<%=  %>」とすることでHTML内で表示させることができます
+　　アクションからview内にデータを受け渡すこともできます
+　
+　　○users_controller.rb
+　　class UsersController < ApplicationController　
+　  　def index
+　　　　@msg = ‘スライムです’
+　  　end
+　　end
+
+　　※変数の先頭に「@」がついたものをインスタンス変数と呼びます
+　　インスタンス変数はクラスのインスタンス前に保持される変数でviewからもアクセスできます
+
+　　○index.html.erb
+　　　<p>’Hello Slime’</p>
+　　　<p>
+　　　　<%= 10 + 1 %><br>
+　　　　<%= @msg %>
+　　　</p> 
+
+
+　　出力結果
+　　Hello Slime
+　　11
+　　スライムです
+
+
+
+
+
+参考ページ
+ビューの作成とデータの受け渡し - Ruby on Rails入門
+(URL)https://www.javadrive.jp/rails/ini/index5.html
+
+
+
