@@ -1,0 +1,250 @@
+24 Ruby on Rails Model・データベースの構造と操作
+学習日時：2020年12月11日
+
+
+Model
+　Modelではデータベースへのアクセスやデータに関する処理を行います
+
+　例）モンスターを管理するMonsterモデルの作成する手順
+　　モンスターは以下のデータを持つとします
+　　名前：name
+　　レベル：level
+
+　　
+　　id	name	level
+　　1	Slime	3
+　　2	Golem	40
+　　3	Dragon	50
+　　
+
+　①ターミナルで「rails g model monster(モデル名) name:string level:integer」と入力・確定します
+
+　※「name:string level:integer」はデータテーブルの構造を意味しています
+　「name」はカラム名で「:」の後にデータ型を記述します
+
+　※主なデータ型
+　　integer：整数
+　　float：少数
+　　string：文字列
+　　text：長い文字列
+　　boolean：真偽値
+
+　②出力結果を確認します
+　　 name:string level:integer
+　　Running via Spring preloader in process 7372
+    　  invoke  active_record
+    　  create    db/migrate/20201211010859_create_monsters.rb
+      　create    app/models/monster.rb
+      　invoke    test_unit
+      　create      test/models/monster_test.rb
+      　create      test/fixtures/monsters.yml
+
+　③プロジェクト名>db>migrate>作成した日付_create_monsters（モデル名）.rbが作成されていることを確認します
+　　「作成した日付_create_monsters.rb」はマイグレーションファイルです
+
+　④プロジェクト名>app>models>monsters（モデル名）.rbが作成されていることを確認します
+　　「monsters（モデル名）.rb」はモデルクラスを定義するファイルです
+
+
+　○作成した日付_create_monsters.rb
+　　class CreateMonsters < ActiveRecord::Migration[5.2]
+　　  def change
+　　    create_table :monsters do |t|  　#monstersというテーブルを作成
+　　      t.string :name　　　　　　　　#カラム名とデータ型を指定しています
+　　      t.integer :level
+
+　　      t.timestamps　　　　　　　　  #コードの作成日と編集日を管理するカラムを自動的に生成するためのものです
+ 　　   end
+　　  end
+　　end
+　　
+
+　※マイグレーションとはデータベースのテーブルの構造に変更を加えるという意味を持ちます
+
+　⑤「rails db:migrate」と入力・確定するとマイグレーションが行われます
+　出力結果
+　== 20201211010859 CreateMonsters: migrating ===================================
+　　-- create_table(:monsters)
+　   -> 0.0028s
+　== 20201211010859 CreateMonsters: migrated (0.0033s) ==========================
+
+　
+データベース構造
+　データベース構造を確認して新しくデータを登録する方法
+　　①ターミナルで「rails dbconsole」と入力・確定するとデータベースをコマンドで操作できる状態になります
+　　
+　　以下の内容が出力されます
+　　SQLite version 3.33.0 2020-08-14 13:23:32　#初期ではSQLiteが設定されておりMySQLに切り替えることもできます
+　　Enter ".help" for usage hints.
+　　sqlite> 
+
+　　②「.tables」と入力しテーブルの一覧で「monsters」が作成されていることを確認します
+
+　　以下の内容が出力されます
+
+　　sqlite> .tables
+　　ar_internal_metadata  monsters              schema_migrations   
+
+　　※「ar_internal_metadata 」と「schema_migrations  」はRailsが管理のために使用しているテーブルです
+
+　　③「.schema monsters（テーブル名）」でmonstersのデータベース構造を確認します
+
+　　以下の内容が出力されます
+CREATE TABLE IF NOT EXISTS "monsters" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　"level" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL);
+
+　　※「id」がinteger型、「name」がvarchara型、「level」がinteger型で作成されていることがわかります
+　　※「created_at」（行の作成日時）がdatetime型、「updated_at」（行の更新日時）がdatetime 型で作成されています
+
+　　④「.q」でコンソールを終了します
+
+　
+
+　　モデルケースを利用してデータベースを操作する方法
+　　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
+　　②「Monteser.all」と入力してテーブルの全てのデータをmonsterモデルを使って取り出します
+
+
+　　以下の内容が出力されます
+　　 Monster Load (0.4ms)  SELECT  "monsters".* FROM "monsters" LIMIT ?  [["LIMIT", 11]]
+　　 => #<ActiveRecord::Relation []> 　#データはまだ空の状態です
+　
+　　※SQLが自動的に実行されます
+　　※SQL文で何が行われているかを常に確認してください　←重要です
+
+　　③「monster = Monster.new」と入力・確定して空のMonsterモデルのインスタンスを作成します
+　　③の出力結果
+　　 => #<Monster id: nil, name: nil, level: nil, created_at: nil, updated_at: nil> 
+
+　　④「monster.name = ’Slime’」と入力・確定してnameをセットします
+　　⑤「monster.level = 3」と入力・確定してlevelをセットします
+　　※「monster.id = 任意の数」でidの指定を行うこともできます
+　　⑥「monster.save」と入力・確定して値をデータベースに保存します
+　　※「monster = Monster.(name: ’Slime’, level: 3)」と入力・確定し
+　　　「monster.save」と入力・確定すれば同様の結果を得ることができます
+
+　　
+　　⑥の出力結果
+　　   (0.1ms)  begin transaction
+　　  Monster Create (1.1ms)  INSERT INTO "monsters" ("name", "level", "created_at", "updated_at") VALUES (?, ?, ?, ?)  　　[["name", "Slime"], ["level", 3], ["created_at", "2020-12-11 03:02:41.108153"], ["updated_at", "2020-12-11 　03:02:41.108153"]]
+　　   (6.1ms)  commit transaction
+　　　 => true 
+
+　　⑦③〜⑥を繰り返して「Golem」と「Dragon」をデータベースに登録します
+　　⑧「Monster.all」で3つのデータが正しく登録されているかを確認します
+
+　　⑧の出力結果
+　　  Monster Load (0.1ms)  SELECT  "monsters".* FROM "monsters" LIMIT ?  [["LIMIT", 11]]
+ => #<ActiveRecord::Relation [#<Monster id: 1, name: "Slime", level: 3, created_at: "2020-12-11 03:02:41", updated_at: "2020-12-11 03:02:41">, #<Monster id: 2, name: "Golem", level: 40, created_at: "2020-12-11 03:06:37", updated_at: "2020-12-11 03:06:37">, #<Monster id: 3, name: "Dragon", level: 50, created_at: "2020-12-11 03:07:14", updated_at: "2020-12-11 03:07:14">]> 
+
+　　※「Monster.find(2)」でidごとにデータを確認することができます
+　　　出力結果
+ Monster Load (0.2ms)  SELECT  "monsters".* FROM "monsters" WHERE "monsters"."id" = ? LIMIT ?  [["id", 2], ["LIMIT", 1]]
+ => #<Monster id: 2, name: "Golem", level: 40, created_at: "2020-12-11 03:06:37", updated_at: "2020-12-11 03:06:37"> 
+
+
+
+　登録したデータを更新する方法
+
+　　id	name	level
+　　1	Slime	3
+　　2	Golem	40
+　　3	Dragon	50
+
+　例）idが2のデータを以下の値に更新
+　　name: ‘Witch’
+　　level:36
+
+　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
+　②「witch = Monster.find(2)」と入力・確定してデータを変数に代入します
+　③「witch.name = ‘Witch’」と入力・確定してnameをセットします
+　④「witch.level = 36」と入力・確定してlevelをセットします
+　⑤「witch.save」と入力・確定して値をデータベースに保存します
+
+　⑤の出力結果
+  　 (0.1ms)  begin transaction
+ 　 Monster Update (1.0ms)  UPDATE "monsters" SET "name" = ?, "level" = ?, "updated_at" = ? WHERE "monsters"."id" = ?  　[["name", "Witch"], ["level", 36], ["updated_at", "2020-12-11 03:23:56.468097"], ["id", 2]]
+  　 (5.6ms)  commit transaction
+　 => true 
+
+　※trueが出ていれば成功です
+
+　⑥「Monster.all」でデータが正しく登録されているかを確認します
+
+　 ⑥の出力結果
+  　Monster Load (0.1ms)  SELECT  "monsters".* FROM "monsters" LIMIT ?  [["LIMIT", 11]]
+　 => #<ActiveRecord::Relation [#<Monster id: 1, name: "Slime", level: 3, created_at: "2020-12-11 03:02:41", updated_at: "2020-12-11 03:02:41">, #<Monster id: 2, name: "Witch", level: 36, created_at: "2020-12-11 03:06:37", updated_at: "2020-12-11 03:23:56">, #<Monster id: 3, name: "Dragon", level: 50, created_at: "2020-12-11 03:07:14", updated_at: "2020-12-11 03:07:14">]> 
+
+
+
+　
+　指定したデータを削除する方法
+
+　　id	name	level
+　　1	Slime	3
+　　2	Golem	40
+　　3	Dragon	50
+
+　　例）idが2のデータを削除
+　　　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
+　　　②「witch = Monster.find(2)」と入力・確定してデータを変数に代入します
+　　　③「witch.destroy」と入力・確定してデータを削除します
+　　　③の出力結果
+　　　   (0.1ms)  begin transaction
+  Monster Destroy (1.0ms)  DELETE FROM "monsters" WHERE "monsters"."id" = ?  [["id", 2]]
+   (5.0ms)  commit transaction
+ => #<Monster id: 2, name: "Witch", level: 36, created_at: "2020-12-11 03:06:37", updated_at: "2020-12-11 03:23:56"> 
+
+　　　④「Monster.all」でデータが正しく削除されているかを確認します
+　　　④の出力結果
+  　　　　Monster Load (0.1ms)  SELECT  "monsters".* FROM "monsters" LIMIT ?  [["LIMIT", 11]]
+　　　　　 => #<ActiveRecord::Relation [#<Monster id: 1, name: "Slime", level: 3, created_at: "2020-12-11 03:02:41", 　　　updated_at: "2020-12-11 03:02:41">, #<Monster id: 3, name: "Dragon", level: 50, created_at: "2020-12-11 03:07:14", updated_at: "2020-12-11 03:07:14">]> 
+
+
+　　　※「Monster.find(2).destroy」で同様な処理を行うことができます
+
+
+　　　※「exit」でRailsコンソールを終了します
+
+
+
+
+
+　データベースの値をwebページに表示する方法
+
+　　id	name	level
+　　1	Slime	3
+　　2	Golem	40
+　　3	Dragon	50
+　　　　
+
+　例）以上のデータを「id,name,level」の順で出力
+　　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
+　　②プロジェクト名>app>controll>users_controller.rbを開きます
+
+　　○users_controller.rb
+　　class UsersController < ApplicationController　
+　  　def index
+　　　　@msg = ‘スライムです’
+
+　　　　@monsters = Monster.all
+　  　end
+　　end
+
+　　③「@monsters = Monster.all」を記述することで
+　　　UsersControllerのindexアクションでMonsterデーブルのデータを取得します
+
+　　④プロジェクト名>app>views>uders>index.html.erbを開いて以下を記述します
+
+　　<ul>
+ 　　   <% @monsters.each do |monster| %>
+  　　  <li><%= monster.id %>,<%= monster.name %>,<%= monster.level %></li>
+  　　  <% end %>
+　　</ul>
+
+　　⑤「rails.s」で確認して表示されていれば完了です
+　　　
+
+
+
+
+
