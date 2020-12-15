@@ -1,0 +1,215 @@
+32 Ruby on Rails Herokuを使ったデプロイ　
+学習日時：2020年12月15日
+
+
+デプロイ
+　開発したソフトウェアをサーバーに設置してユーザーが利用できる状態にすること
+
+サーバーの選び方
+　オンプレミス
+　　物理的なコンピュータを購入・設置して運用
+　クラウドサービス
+　　仮想サーバーを使った分だけ手数料を払って利用する
+
+
+Heroku
+　(URL)https://jp.heroku.com/
+　HeokuとはPaas(Plarform as a Service)と呼ばれるクラウドサービスです
+
+
+　PaaS
+　アプリケーション：開発者
+　ミドルウェア：Heroku
+　OS：Heroku
+　ハードウェア：Heroku
+　Network：Heroku
+
+　注意事項
+　　①個人情報は扱わない
+　　②学習が終わったら公開したアプリを削除
+
+
+
+デプロイの準備
+　デプロイを行う前にRailsのファイルを編集します
+　①gemfile
+　②config/database.yml
+　③config/environments/production.rb
+　④config/routes.rb
+
+
+
+　Ⅰ　データベースを「sqlite」から「PostgreSQL」へ切り替えます
+　ⅱ　9行目の「gem 'sqlite3', '~> 1.3.6’」を39行目の「group :development」内にカット＆ペースト
+
+　group :development, :test do
+ 　 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+　  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+　  gem 'sqlite3', '~> 1.3.6'
+　end
+
+
+　Ⅲ　次に「group :test do」の下（61行目以降）に以下の記述をします
+
+　# 本番環境でこのrailsプロジェクトを実行するときに以下のgemを読み込みます
+　# 「pg」はostgreSQLを使うためのgemです
+　group :production do
+　  gem 'pg', '~> 0.18.4'
+　end
+
+　Ⅳ　ターミナルを開いて「qanda」フォルダで「bundle install —without production」と入力・確定します
+　※gemファイルのproduction以外のgemをインストールすることができます
+　※Herokuで使用するときにproductionモードで実行します
+　※今後bundleをインストールする際は「bundle install」とすればOKです
+
+　Ⅴ　データベースの設定を行います
+　ⅵ　qanda>config>database.ymlを開きます
+　○database.yml
+　# SQLite version 3.x
+　#   gem install sqlite3
+　#
+　#   Ensure the SQLite 3 gem is defined in your Gemfile
+　#   gem 'sqlite3'
+　#
+　# インデントに注意
+　# ↓はデフォルトで使われる設定です
+　default: &default
+　  adapter: sqlite3
+　  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+　  timeout: 5000
+  
+　# 以下はそれぞれの状況でデフォルトから変更を加えたいときに記述します
+
+　development:
+　  <<: *default
+　  database: db/development.sqlite3
+
+　# Warning: The database defined as "test" will be erased and
+　# re-generated from your development database when you run "rake".
+　# Do not set this db to the same as development or production.
+　test:
+　  <<: *default
+ 　 database: db/test.sqlite3
+
+　production:
+　  <<: *default
+ 　 # 下はsqliteを利用するという設定ですが今回は使用しませんのでコメントアウトします
+ 　 # database: db/production.sqlite3
+  
+　  # 以下を記述します
+　  # postgreaqlを使用するという設定
+　  adapter: postgreaql
+　  # 日本語が入力できる文字コードを設定
+　  encoding: unicode
+
+
+　Ⅶ　アセットプリコンパイルを有効にします
+　config>environments>「production.rb」を開いて30行目の「 config.assets.compile = false」を「true」に変更します
+
+　アセットプリコンパイルではCSSやJSのファイルを一つにして圧縮したり、画像ファイルを整理したりして
+　ユーザーが高速でページを読み込めるようにデプロイ時に準備を行います
+
+　Ⅷルーティングを確認します
+　config>routes.rbを開いてルーティングが設定されていることを確認します
+
+
+　※今回の場合は
+ 　 「root 'questions#index’」
+　「 resources :questions do」が記述されていればOKです
+
+
+
+
+
+Gitの設定
+　gitとは
+　ソースコードのバージョンを管理するツールです
+
+
+　①gitで個人の識別番号を登録するために以下のコマンドを実行します
+　　$ git config --global user.name “名前”
+　　$ git config --global user.email メールアドレス
+
+
+　②ターミナルを開いて「qanda」フォルダで「git init」と入力します
+　③「git add -A」と入力し管理するファイルを設定します
+　※「qanda」内のファイルが全て選択されます
+　※「.gitignore」で指定したファイルは選択されません
+
+　④「git commit -m “Initial commit”」でコミットという登録処理を行います
+　※「-m “Initial commit”」ではメッセージを書くことができます
+
+
+　※ファイルを変更したら必ず③④を実行してください
+
+
+
+Heroku CLIのインストール
+　Heroku CLICommand Line Interface)とは
+　　Cloud9などからHerokuを操作するためのツールです
+
+
+　①「cd  ~/environment/」でルートディレクトリに移動します
+　②「curl -OL https://cli-assets.heroku.com/heroku-linux-x64.tar.gz」と入力します
+　　※上のリンクはThe Herokuu CLI(https://devcenter.heroku.com/articles/heroku-cli)
+　　のTarballsのLinux(x64)のリンクをコピーしてペーストします
+　　※「curl -OL」は指定したリンクにあるファイルをダウンロードするという意味です
+　③「ls」で「heroku-linux-x64.tar.gz 」がインストールされているのを確認します
+　④「tar zxf heroku-linux-x64.tar.gz 」で「heroku-linux-x64.tar.gz 」を解凍します
+　⑤「ls heroku」でファイルが解凍されているのを確認します
+　⑥「sudo mv heroku /usr/local」でherokuフォルダを /usr/localに移動します
+　　※ 「/usr/local」は一般的にシステム管理者が自分でコンパイルしたアプリケーションをインストールする場所です
+　⑦「ls  /usr/local/heroku」でherokuが移動していることを確認します
+　⑧「echo ‘PATH=/usr/local/heroku/bin:$PATH’ >> $HOME/.bash_profile」でパスの設定を行います
+　　※「echo ‘PATH=/usr/local/heroku/bin:$PATH’ >> $HOME/.bash_profile」は
+　　「PATH=/usr/local/heroku/bin:$PATH」という文字列をユーザーのホームディレクトリにある
+　　「.bash_profile」というファイルの内容を追記します
+　※「.bash_profile」とはシェルの設定ファイルのことです
+　⑨「source $HOME/.bash_profile」で設定を反映させます
+　⑩「heroku -v」でherokuがインストールされているか確認します
+
+　　出力結果
+ 　　›   Warning: Our terms of service have changed: https://dashboard.heroku.com/terms-of-service
+　　heroku/7.47.5 linux-x64 node-v12.16.2
+
+　⑪「rm -f heroku-linux-x64.tar.gz」でダウンロードした圧縮ファイルを削除します
+
+
+RailsアプリとHerokuの関連付け
+　①「cd rails_projects/qanda/」でプロジェクトフォルダに移動します
+　②「$heroku login --interactive」でherokuにログインします
+　③「heroku create qanda-12345」でRailsアプリとHerokuの関連付けを行います
+　※「qanda-12345」はアプリ名で書かなくても問題はありません
+　出力結果
+　https://glacial-meadow-71213.herokuapp.com/ | https://git.heroku.com/glacial-meadow-71213.git
+
+　※「https://glacial-meadow-71213.herokuapp.com/ 」はアプリのリンクです
+
+
+デプロイ
+　①「git push heroku master」でサーバーにデプロイします
+　②「heroku run rails db:migrate」データベースのマイグレーションを実行します
+　③「heroku apps:info」でアプリのURLを確認します
+　　出力結果
+　　=== glacial-meadow-71213
+　　Addons:         heroku-postgresql:hobby-dev
+　　Auto Cert Mgmt: false
+　　Dynos:          web: 1
+　　Git URL:        https://git.heroku.com/glacial-meadow-71213.git
+　　Owner:          ts16230tr@gmail.com
+　　Region:         us
+　　Repo Size:      37 KB
+　　Slug Size:      46 MB
+　　Stack:          heroku-18
+　　Web URL:        https://glacial-meadow-71213.herokuapp.com/
+
+
+アプリの削除
+　①「heroku apps:destroy —app アプリ名」を入力し、もう一度アプリ名を入力して削除します
+
+
+参考ページ
+HerokuでのアプリのデプロイでMySQLを使用してみた。
+(URL)https://qiita.com/Takao_/items/aeb3570b42a6aeb5461f
+Heroku CLIログインがデフォルトでブラウザを開くようになった - ローイングファンのプログラミング日記
+(URL)https://rowingfan.hatenablog.jp/entry/2018/12/24/093511
