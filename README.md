@@ -12,4 +12,4 @@ Software Design plus
 AMAZON （URL）https://www.amazon.co.jp/dp/B077Q8BXHC/ref=cm_sw_em_r_mt_dp_4fHZFb4JGFNFA?_encoding=UTF8&psc=1  
 
 ※単元ごとに学習・参考にしたwebページは各メモの最下部に記載しています  
-※25から32までは「ミニQ&Aサービスの開発」に関するメモです（非公開）  
+※25から31までは「ミニQ&Aサービスの開発」に関するメモです（非公開）  
