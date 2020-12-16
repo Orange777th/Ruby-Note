@@ -2,6 +2,10 @@
 Ruby・Ruby on railsの学習用のメモです
 学習開始日：2020年12月5日
 
+## 目的
+①Ruby on Railsの理解を深める
+②GitHubの練習
+
 ## 学習教材・参考文献
 Udemy「はじめてのRuby on Rails入門-RubyとRailsを基礎から学びWebアプリケーションをネットに公開しよう」  
 作成者: 中村祐太様、Proglusプログラミング教室様  
