@@ -1,5 +1,5 @@
 # Ruby-Note
-Ruby・Ruby on railsの学習用のメモです
+Ruby・Ruby on railsの学習用のメモです  
 学習開始日：2020年12月5日
 
 ## 目的
