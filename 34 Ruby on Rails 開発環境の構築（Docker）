@@ -2,11 +2,11 @@
 学習日時：2020年12月16日
 
 
-○Dockerを使用した開発環境
-￼
+ ○Dockerを使用した開発環境
+￼ ※今回は「Docker for Mac」を使用します
 
-　※今回は「Docker for Mac」を使用します
 
+　
 「Docker for Mac」のインストール（20201216時点）
 　①「Docker」の公式サイト（https://www.docker.com/）にアクセスします
 　②メニューバーの「Products」をクリック
@@ -156,11 +156,11 @@ Rails開発環境の構築
 
 参考ページ
 【初心者向け】bundler、Gemfile、Gemfile.lockの関係性について図でまとめてみた
-（URL）https://qiita.com/nishina555/items/1b343d368c5ecec6aecf
+　（URL）https://qiita.com/nishina555/items/1b343d368c5ecec6aecf
 docker-compose.ymlの書き方について解説してみた
-（URL）https://qiita.com/yuta-ushijima/items/d3d98177e1b28f736f04
+　（URL）https://qiita.com/yuta-ushijima/items/d3d98177e1b28f736f04
 Vim / Vi を終了させる方法
-（URL）https://qiita.com/kon_yu/items/b8864ff566b8b67a9810
+　（URL）https://qiita.com/kon_yu/items/b8864ff566b8b67a9810
 
 
 
