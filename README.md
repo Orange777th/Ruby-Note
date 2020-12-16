@@ -6,6 +6,7 @@ Ruby・Ruby on railsの学習用のメモです
 ①Ruby on Railsの理解を深める  
 ②GitHubの練習  
 ③ドキュメント制作の練習  
+④アウトプットの練習  
 
 ## 学習教材・参考文献
 Udemy「はじめてのRuby on Rails入門-RubyとRailsを基礎から学びWebアプリケーションをネットに公開しよう」  
