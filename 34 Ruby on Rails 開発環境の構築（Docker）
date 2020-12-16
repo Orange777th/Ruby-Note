@@ -1,0 +1,166 @@
+34 Ruby on Rails 開発環境の構築（Docker）
+学習日時：2020年12月16日
+
+
+○Dockerを使用した開発環境
+￼
+
+　※今回は「Docker for Mac」を使用します
+
+「Docker for Mac」のインストール（20201216時点）
+　①「Docker」の公式サイト（https://www.docker.com/）にアクセスします
+　②メニューバーの「Products」をクリック
+　③「Download for Mac」をクリックしてファイルをダウンロードします
+　④「Docker」アイコンをダブルクリックして起動します
+　⑤起動したらターミナルで「docker version」と入力して起動しているか確認します
+　⑥「docker run hello-world」で「hello-worldコンテナ」を起動してコンテナ実行が行われるかを確認します
+　「Hello from Docker!」と表示されていれば成功です
+
+
+
+
+
+「Docker」を使ったRailsの環境構築
+　※必要な4つのファイル
+￼
+
+　①「Docker file」
+　　Cockerの新しいイメージを作成する際に使用するものであり、この設定ファイルにはRailsアプリケーション実行に必要なファイルやパッケージをイメージを含めるための定義が含まれています
+　　Dockerにおける仮想環境であるコンテナはこのイメージを元に作成されます
+　　→Docker Image（コンテナ仮想環境の雛形）が作られる
+
+　○Docker file
+　　FROM ruby:2.3.6
+　　RUN apt-get update -qq && apt-get install -y build-essential nodejs
+　　RUN mkdir /app
+　　WORKDIR /app
+　　COPY Gemfile /app/Gemfile
+　　COPY Gemfile.lock /app/Gemfile.lock
+　　RUN bundle install
+　　COPY . /app
+
+　※「FROM ruby:2.3.6」を「FROM ruby:2.4.5」に置き換えてください
+
+　②「Gemfile」、「Gemfile.lock」
+　「Gemfile」はインストールするGemを定義しておくためのファイルです
+　「Gemfile.lock」は実際にインストールしたGemファイルが記載されており、他の開発者と同じ開発環境を再現するために使用されます
+
+　○「Gemfile」
+　　source 'https://rubygems.org'
+　　gem 'rails', '5.0.0.1'
+
+
+　③「docker-compose.yml」
+　　dockerで複数のコンテナを設定に従ってまとめて起動するために使用します
+　　今回は「Rails」と「MySQLサーバー」を実行するコンテナを起動します
+
+　○「docker-compose.yml」
+　　version: '3'
+　　services:
+　　  web:
+　　    build: .
+　　    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+　　    volumes:
+　　      - .:/app
+ 　　   ports:
+ 　　     - 3000:3000
+　　    depends_on:
+　　      - db
+　　    tty: true
+　　    stdin_open: true
+　　  db:
+　　    image: mysql:5.7
+　　    volumes:
+　　      - db-volume:/var/lib/mysql
+　　    environment:
+　　      MYSQL_ROOT_PASSWORD: password
+　　volumes:
+　　  db-volume:
+
+　　※「web」がRailsコンテナの定義で「db」がMySQLサーバーコンテナの定義です
+
+
+
+
+Rails開発環境の構築
+　　以上で設定したファイルを使用します
+　①ターミナルで設定ファイルが保存されているディレクトリに移動します
+　②「ls -l」で設定ファイルが存在するか確認します
+　③「docker-compose run web rails new . —force —database=mysql」
+　※「docker-compose run web」はwebサービスのコンテナで後のコマンドを実行します
+　※「rails new . 」はディレクトリ上に新しいRailsプロジェクトのファイルを作成します
+　　「 —force」は既存のファイルを上書きをするオプションで、
+　　「 —database=mysql」はMySQLを指定するオプションです
+
+　④「docker-compose build」で
+　　Gemファイルに記述されたGemのインストールや作成されたファイルをコンテナ内に移動させます
+　⑤「vim config/database.yml」で「database.yml」を開いてRailsで使用するデータベースの設定ファイルを編集します
+　⑥「database.yml」を以下のように書き換えて、データベースのパスワードとホストの指定を行います
+
+　○database.yml
+
+　　〜略〜
+
+　　default: &default
+　　  adapter: mysql2
+　　  encoding: utf8
+　　  pool: 5
+　　  username: root
+　　  password: password
+　　  host: db
+
+　　〜略〜
+
+　※passwordとhostは「docker-compose.yml」に記載したものに合わせる必要があります
+　　passwordはMYSQL_ROOT_PASSWORD環境変数の”password”、
+　　hostはMySQLサーバーのコンテナのサービス名である”db”に設定します
+
+　⑦「:wq」で保存してvimを終了します
+　⑧「docker-compose up -d」でRailsのコンテナとMySQLサーバーのコンテナを起動します
+　※「docker-compose up -d」は現在のディレクトリにある「docker-compose.yml」に基づいて
+　　コンテナ（仮想環境）を起動します
+
+　　出力結果
+　　　project1_db_1 is up-to-date
+　　　Creating project1_web_1 ... done
+
+　⑨「docker-compose ps」でコンテナが起動しているかを確認します
+　 　出力結果
+　　　     Name                   Command               State           Ports         
+　　--------------------------------------------------------------------------------
+　　project1_db_1    docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp   
+　　project1_web_1   bundle exec rails s -p 300 ...   Up      0.0.0.0:3000->3000/tcp
+
+　　※以上が表示されたらOKです
+　　※この時点では開発環境用のデータベースが作成されていません
+
+　⑩「docker-compose run web bundle exec rake db:create」でデータベースを作成します
+　　※「 bundle exec rake」はRails環境にインストールされているrakeコマンドを実行します
+　　※「rake db:create」でRailsで使用するデータベースをMySQLサーバ上で作成します
+　　※Railsサーバーにアクセス可能になります
+
+　⑪ブラウザで「localhost:3000」と入力して「Yay! You’re on Rails!」の画面が出ていれば完了です
+
+
+
+
+
+ソースコードの変更が即時反映されない場合
+　①config/environments/「development.rb 」を開きます
+　②「Rails.application.configure do」内に「 config.reload_classes_only_on_change = false」を追記します
+　③「docker-compose restart」でRailsを再起動して完了です
+
+
+
+
+
+参考ページ
+【初心者向け】bundler、Gemfile、Gemfile.lockの関係性について図でまとめてみた
+（URL）https://qiita.com/nishina555/items/1b343d368c5ecec6aecf
+docker-compose.ymlの書き方について解説してみた
+（URL）https://qiita.com/yuta-ushijima/items/d3d98177e1b28f736f04
+Vim / Vi を終了させる方法
+（URL）https://qiita.com/kon_yu/items/b8864ff566b8b67a9810
+
+
+
