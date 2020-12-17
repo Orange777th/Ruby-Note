@@ -1,12 +1,12 @@
-34 Ruby on Rails 開発環境の構築（Docker）
+34 Ruby on Rails 開発環境の構築（Docker）・起動方法
 学習日時：2020年12月16日
 
 
- ○Dockerを使用した開発環境
-￼ ※今回は「Docker for Mac」を使用します
+○Dockerを使用した開発環境
+￼
 
+　※今回は「Docker for Mac」を使用します
 
-　
 「Docker for Mac」のインストール（20201216時点）
 　①「Docker」の公式サイト（https://www.docker.com/）にアクセスします
 　②メニューバーの「Products」をクリック
@@ -153,6 +153,29 @@ Rails開発環境の構築
 
 
 
+開発環境の起動・停止・削除
+
+　開発環境の起動
+　　①ターミナルを起動します
+　　②「docker-compose.yml」が存在するディレクトリします
+　　③「docker-compose up -d」で実行します
+　　④ブラウザで「localhost:3000」と入力してアプリケーションの画面が表示されていれば完了です
+
+　　※「docker-compose up」で実行すると各コンテナのログやアクセスログを確認することができます
+　　※「docker-compose up」の方法で起動したときに「server.pid」が残ったままになると再起動時にエラーになる可能性があります
+　　　→「rm tmp/pids/server.pid」で「server.pid」を削除してもう一度起動します
+
+　開発環境の停止
+　　①「docker-compose stop」で停止します
+
+　開発環境の削除
+　　①「docker-compose down」でコンテナを削除します
+
+　　
+
+
+
+
 
 参考ページ
 【初心者向け】bundler、Gemfile、Gemfile.lockの関係性について図でまとめてみた
@@ -161,6 +184,3 @@ docker-compose.ymlの書き方について解説してみた
 　（URL）https://qiita.com/yuta-ushijima/items/d3d98177e1b28f736f04
 Vim / Vi を終了させる方法
 　（URL）https://qiita.com/kon_yu/items/b8864ff566b8b67a9810
-
-
-
