@@ -1,0 +1,80 @@
+39 Ruby on Rails ここまでで発生したエラーと対策
+学習日時：2020年12月18日
+
+
+
+ActiveRecord::NoDatabaseErrorが出た時の対処法
+（URL）https://rails-ambassador.herokuapp.com/debugs/NoDatabaseError
+
+原因：データベースが作成されていない
+解決方法：rails db:create
+Docekrの場合：docker-compose run web bundle exec rake db:create
+
+　　　　　　　docker-compose run web bundle exec rake db:migrate
+
+
+
+
+
+【Docker】プロセスの状態がExit１でコンテナ内へSSH接続ができない時に改善した方法
+（URL）https://qiita.com/takashico/items/a6c8b095c16f91c11b27
+
+原因：不明（2020年12月18日時点）
+
+「docker-compose up -d」でコンテナを起動して
+「localhost」でアプリを実行するとサーバーに接続できなくなりました
+
+「docker-compose ps」で実行中のプロセスを確認するとStateが「Exit 1」であることがわかります
+
+     Name                   Command               State           Ports         
+--------------------------------------------------------------------------------
+project1_db_1    docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp   
+project1_web_1   bundle exec rails s -p 300 ...   Exit 1       0.0.0.0:3000->3000/tcp
+
+
+解決方法：以下を実行します
+#コンテナのサービスを停止・イメージやボリュームを削除
+$ docker-compose down
+#不要ボリューム等の一括削除
+#docker system pruneではボリュームまでは削除してくれない
+$ docker system prune --volumes
+#起動前にイメージを構築してから、コンテナを作成し起動する
+$ docker-compose up --build        
+#server.pidファイルを削除
+$ rm tmp/pids/server.pid
+
+
+
+docker-compose upしたときに「A server is already running.」って言われないようにする
+(https://qiita.com/paranishian/items/862ce4de104992df48e1)
+
+
+○docker-compose.yml
+version: '3'
+services:
+  web:
+    build: .
+    # command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    # 毎回自動で「rm tmp/pids/server.pid」が実行されるようにします
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+  db:
+    image: mysql:5.7
+    volumes:
+      - db-volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+volumes:
+  db-volume:
+
+
+
+
