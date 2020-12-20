@@ -1,4 +1,4 @@
-SQL基礎 01
+SQL基礎 01 基本文法
 学習日時：12月20日
 
 
@@ -146,4 +146,39 @@ AND category = “人間”
 SELECT * FROM items
 WHERE character_name = “OREN”
 OR character_name = “Slime”
+
+
+データの並べ替え
+例）
+ORDER BY 並べ替えたいカラム名 並べ方
+
+ASC（昇順）：1,2,3,…10
+DESC（降順）：10...3,2,1
+
+例）itemsを値段が大きい順に並べる
+SELECT *
+FROM items
+ORDER BY price DESC;
+
+※「ORDER BY」は「WHERE」と併用することができます
+
+
+取得結果の加工
+LIMIT
+最大で何件取得するかを指定する文です
+
+例）3つのデータのみ習得する
+SELECT *
+FROM items
+LIMIT 3
+
+※「LIMIT」は「WHERE」と併用することができます
+
+
+ORDER BYとLIMITの組み合わせ
+例）値段を降順に並べ替えて上位の3つのデータのみ習得する
+SELECT *
+FROM items
+ORDER BY price
+LIMIT 3
 
