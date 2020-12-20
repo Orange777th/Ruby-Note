@@ -1,0 +1,149 @@
+SQL基礎 01
+学習日時：12月20日
+
+
+
+データベース
+データベースとはテキストや数値などのデータを保存するためものです
+
+
+
+データベースの仕組み
+データベースは「テーブル」と呼ばれる表を利用してデータを管理しています呼びます
+縦の列のことを「カラム」、横の行のことを「レコード」と呼びます
+データベースでは必要に応じて複数のテーブルを作成することが可能です。
+
+
+クエリとSQL文
+データベースに送る命令のことをクエリといいます
+SQLはクエリを書くための言語です
+SQL文の語尾に“;”をつけるのを忘れないようにしてください
+
+
+SELECT
+どのカラムのデータを取得するかを選択する命令文です
+
+FROM
+どのテーブルのカラムかを指定する命令文です
+
+例）membersテーブルからnameカラムのデータを取得する命令文
+SELECT name
+FROM members;
+
+
+
+複数のカラムの選択
+例）nameとpriceカラムのデータを取得する命令文
+
+SELECT name, price
+
+例）全てのカラムからデータを取得する命令文
+SELECT *
+FROM items;
+
+
+
+特定のデータの取得
+WHERE
+どこのレコード（横の行）を取得するか指定する文です
+
+例）「食品」のデータの取得
+　　categoryカラムが自転車であるレコードを指定する文
+
+　　SELECT *
+　　FROM items
+　　WHERE category = “食品”;
+
+
+
+
+色々なカラムを条件にデータの取得
+データの種類（データ型）
+
+テキストデータ：”OREN”
+数値データ：1225
+日付データ：”2020-12-19”
+
+
+例）商品の値段が150円のデータの取得
+SELECT *
+FROM items
+WHERE price = 150;
+
+
+
+比較演算子
+例）150円以上の商品データを取得する文
+SELECT *
+FROM items
+WHERE price >= 150;
+
+
+
+特定の文字を含むデータの取得
+例）
+SELECT *
+FROM items
+WHERE name LIKE 文字列;
+
+
+ワイルドカード
+どんな文字列にも一致することを指す記号のことです
+例）
+SELECT *
+FROM items
+WHERE name LIKE “%オレンジ%”
+
+以上のように記述すると「オレンジ」という文字を含むデータを取得することができます
+
+例）前方一致
+SELECT *
+FROM items
+WHERE name LIKE “オレンジ%”
+
+例）後方一致
+SELECT *
+FROM items
+WHERE name LIKE “%オレンジ”
+
+
+否定の条件でデータを取得する
+
+例）priceが「150より高くない」＝「150以下」のデータを取得する
+SELECT *
+FROM items
+WHERE NOT price > 150;
+
+例）「オレンジ」が含まれないデータを取得する
+SELECT *
+FROM items
+WHERE NOT name LIKE “オレンジ”;
+
+
+カラムに何も保存されていないデータ
+NULL
+　何のデータも保存されていない状態のことを指します
+
+
+NULLのデータを取得する
+例）指定したカラムのデータが「NULL」であるものを取得する
+SELECT * FROM items
+WHERE price IS NULL;
+
+例）指定したカラムのデータが「NULL」ではないものを取得する
+SELECT * FROM items
+WHERE price IS NOT NULL;
+
+
+AND・OR演算子
+例）character_nameが”OREN”でかつcategoryが”人間”であるデータを取得します
+SELECT * FROM items
+WHERE character_name = “OREN”
+AND category = “人間”
+
+
+例）character_nameが”OREN”または”Slime”であるデータを取得します
+SELECT * FROM items
+WHERE character_name = “OREN”
+OR character_name = “Slime”
+
