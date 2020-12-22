@@ -40,6 +40,21 @@ Railsの基本理念
 　　　　→関数にする（リファクタリング）
 
 
+フォルダの構成
+/sample アプリケーション ルート
+ ├/ app アプリ の メインフォルダ
+　　 │ ├/ assets JS ファイル、 CSS、 画像 ファイル などを 配置 する
+　　 │ ├/ controllers コントローラ クラス を 配置 する 
+　　 │ ├/ helpers ビューヘルパー を配置 する
+     │ ├/ models モデル クラスを配置 する
+　　 │ └/ views ビュークラスを配置 
+├/ bin 各種 ヘルパー スクリプト
+├/ config 設定 情報 
+├/ db データベース 情報 
+├/ public 公開 フォルダ 
+└/ test テスト スクリプト
+
+引用（天田士郎. Rubyの文法を学んだ人がRuby on Railsの勉強を始める前の踏み台にするための本 (Kindle の位置No.57-67). Kindle 版. ）
 
 
 
@@ -85,9 +100,13 @@ MVC(ModelViewController)アーキテクチャ
 
 
 
+
+
 参考
 Railsアプリケーションを構築するための MVCモデルとは
 (URL)https://blank-oldstranger.com/2019/01/11/mvc-model/
 
 Railsのバージョン指定の方法を現役エンジニアが解説【初心者向け】
 (URL)https://techacademy.jp/magazine/22193
+
+天田士郎. Rubyの文法を学んだ人がRuby on Railsの勉強を始める前の踏み台にするための本
