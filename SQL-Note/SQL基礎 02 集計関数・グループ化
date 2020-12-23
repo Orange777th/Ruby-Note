@@ -1,0 +1,154 @@
+SQL基礎 02 集計関数・グループ化
+学習日時：12月20日
+
+
+
+
+検索結果の加工
+
+重複したデータを省く
+DISTINCT（カラム名）
+　検索結果から重複したデータを除くことができます
+　「DISTINCT(カラム名)」とすることで検索結果から指定したカラムの重複するデータを除くことができます。
+
+例）itemsテーブルからnameカラムの重複したデータを省いて取得する
+
+SELECT DISTINCT(name)
+FROM items;
+
+
+四則演算
+カラム名 * 1.10：指定したカラムのデータに1.10をかける
+カラム名 -  2800：指定したカラムのデータから2800を引く
+
+例）
+SELECT name, price * 1.10
+FROM items
+
+例）利益の計算
+SELECT name, price - cost
+FROM items;
+
+例）利益の計算（高い順に表示）
+SELECT name, price - cost
+FROM items
+ORDER BY price - cost DESC;
+
+
+集計関数
+SQLで数値の合計を計算する
+SUM(カラム名)
+
+
+例）
+SELECT SUM(price)
+FROM items;
+
+例）スライムが今まで使ったお金の合計金額を取得する
+SELECT SUM(price)
+FROM items
+WHERE name = "スライム";
+
+
+平均の計算
+AVG(カラム名)
+
+例）
+SELECT AVG(price)
+FROM items;
+
+例）
+SELECT AVG(price)
+FROM items
+WHERE name = "スライム";
+
+例）利益の平均値
+SELECT AVG(price - cost)
+FROM items;
+
+
+データの数の計算
+COUNT(カラム名)
+※nullのデータの数は計算されません。
+
+例）
+SELECT COUNT(*)
+FROM items;
+
+例）
+SELECT COUNT(*)
+FROM items
+WHERE name = "スライム";
+
+
+最大・最小を求める
+MAX(カラム名)
+MIN(カラム名)
+
+例）
+SELECT MAX(price)
+FROM items;
+
+例）
+SELECT MAX(price)
+FROM items
+WHERE name = "スライム";
+
+
+データのグループ化
+GROUP BY カラム名
+
+例）発売日ごとに値段の合計を集計する
+SELECT SUM(price), released_at
+FROM items
+GROUP BY released_at;
+
+※GROUP BYを用いる場合、SELECTで使えるのはGROUP　BYに指定しているカラム名と集計関数のみです。
+
+
+グループ化（複数のカラム）
+GROUP BY カラム名1,カラム名2,…
+
+
+例）
+SELECT SUM(price), released_at, name
+FROM items
+GROUP BY released_at, name;
+
+
+細かい条件でデータをグループ化
+
+例）WHEREとGROUP BY
+SELECT 集計関数
+FROM テーブル名
+WHERE 条件
+GROUP BY カラム名,カラム名;
+
+※検索（WHERE）→グループ化（GROUP BY）→関数（COUNT・SUM・AVG・MAX・MIN）の順で実行されます
+
+例）
+SELECT SUM(price),  released_at
+FROM items
+WHERE name = "スライム"
+GROUP BY released_at, name;
+
+
+
+HAVING
+GROUP BYでグループ化したデータを更に絞り込みたい場合、HAVINGを用います
+
+GROUP BY カラム名
+HAVING 条件;
+
+※検索（WHERE）→グループ化（GROUP BY）→関数（COUNT・SUM・AVG・MAX・MIN）→HAVINGの順で実行されます
+
+※WHEREはグループ化される前のテーブル全体を検索対象とし、HAVINGはGROUP BYによってグループ化されたデータを検索対象とします。
+
+例）
+日付ごとの合計金額のうち、1050円を超えるデータのみを取得してください
+
+SELECT SUM(price), purchased_at
+FROM purchases
+GROUP BY purchased_at
+HAVING SUM(price) > 1050;
+
