@@ -1,0 +1,108 @@
+SQL基礎 03 サブクエリ・JOIN
+学習日時：12月21日
+
+
+
+サブクエリ
+SQLではクエリの中に他のクエリを入れることができ、そのクエリをサブクエリと言います
+
+例）スライムの攻撃力より高いモンスターの名前を取得する
+SELECT name
+FROM monsters
+WHERE attacks > (
+    SELECT attacks
+    FROM monsters
+    WHERE name = "スライム"
+);
+
+※サブクエリ→クエリの順に実行されます
+※サブクエリの語尾に";"は書かない
+
+
+AS
+例）
+SELECT attacks AS "スライムの攻撃力"
+FROM monsters
+WHERE monsters = "スライム";
+
+
+テーブルを紐づける
+
+JOIN
+JOINで複数のテーブルを1つに結合することができますONで条件を指定してテーブルAにテーブルBを結合することができ、結合したテーブルは1つのテーブルとしてデータを取得することができます
+結合条件は「ON テーブル名.カラム名 = テーブル名.カラム名」で指定します
+
+SELECT *
+FROM テーブルA
+JOIN テーブルB
+ON 結合条件
+
+
+SELECT *
+FROM テーブルA
+JOIN テーブルB
+ON テーブルA.カラム名 = テーブルB.カラム名
+
+例）モンスターテーブルの所属ダンジョンIDとダンジョンテーブルのダンジョンIDを結合する文
+
+SELECT *
+FROM monsters
+JOIN dungeons
+ON monsters.dungeons_id = dungeons.id;
+
+JOINを含んだクエリはJOINが最初に実行され、
+その次に結合されたテーブルに対してSELECTが実行されます
+
+
+JOINを活用したデータ取得
+複数のテーブルに同じカラム名が存在するときは「テーブル名.カラム名」で指定します
+
+例）
+SELECT monsters.name, dungeons.name
+FROM monsters
+JOIN dungeons
+ON monsters.dungeons_id = dungeons.id;
+
+
+例）
+SELECT monsters.name, dungeons.name
+FROM monsters
+JOIN dungeons
+ON monsters.dungeons_id = dungeons.id
+WHERE monsters.name = "スライム"
+
+
+例）ダンジョンごとにモンスターの攻撃力の合計を取得する
+SELECT  monsters.name, SUM(attacks)
+FROM monsters
+JOIN dungeons
+ON monsters.dungeons_id =  dungeons.id
+GROUP BY dungeons.name;
+
+※JOINを使った結合はFROMで指定したテーブルを基準に実行されますが、外部キーがNULLのレコードは実行結果に表示されません
+
+
+NULLのデータの取得
+LEFT JOIN
+FROMで指定したテーブルのレコードを全て取得することができます
+外部キーがNULLのレコードもNULLのまま表示されます
+
+
+例）NULLのデータも取得する
+SELECT *
+FROM monsters
+LEFT JOIN parties
+ON monsters.previous_party_id = parties.id;
+
+
+3つ以上のテーブルの結合
+JOINは1つのクエリで複数回使用することができます
+
+例）
+SELECT *
+FROM monsters
+JOIN dungeons
+ON monsters.dungeon_id = dungeons.id
+LEFT JOIN parties
+ON monsters.previous_party_id = parties.id
+
