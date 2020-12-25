@@ -76,5 +76,7 @@ volumes:
   db-volume:
 
 
+ ActionView::Template::Error (undefined local variable or method `root_path' for #<#<Class:0x0000555a822c3fa8>:0x0000555a82295d38>):
+解決方法：routeの設定を見直してください
 
 
