@@ -1,0 +1,62 @@
+SQL基礎 04 データの追加・更新・削除
+学習日時：12月23日
+
+
+
+
+データを追加する方法
+INSERT
+
+例）monstersテーブルにid=4,モンスター名：Slime,所属ダンジョン：洞窟（cave）
+
+INSERT INTO monsters(id, name, dungeon)
+VALUES(4, "Slime", "cave");
+
+
+AUTO INCREMENT
+「自動で増加する」といった意味でデータが作成されるときに自動で値が割り当てられます。
+
+例）monstersテーブルにid=4,モンスター名：Slime,所属ダンジョン：洞窟（Cave）
+
+INSERT INTO monsters(name, dungeon)
+VALUES("Slime", "Cave");
+
+※idは自動的に割り当てられます
+
+
+
+
+データの更新
+UPDATE
+
+例）monstersテーブルにid=4,モンスター名：Slime,所属ダンジョン：洞窟（cave）をモンスター名：Red Slime,所属ダンジョン：湖（Lake）
+
+UPDATE monsters
+SET name = "Red Slime", dungeon = "Lake"
+WHERE id = 4 ;
+
+※WHEREで更新するidを指定しないとすべてのカラムが更新されてしまいます
+※UPDATE実行後はデータを元に戻すことができません
+そのため、実行前に必ず一度SELECTを実行して、操作するデータを確認します
+
+例）データの確認
+SELECT * FROM monsters WHERE id=4;
+
+
+データの削除
+DELETE
+UPDATEと同様にクエリ実行後はレコードを元に戻すことができません
+
+例）
+DELETE FROM monsters
+WHERE id = 4;
+
+※WHEREで削除するidを指定しないとすべてのカラムが削除されてしまいます
+
+
+
+
+
+
+
+
