@@ -1,4 +1,4 @@
-23 Ruby on Rails View
+23 View
 学習日時：2020年12月11日
 
 
@@ -65,12 +65,13 @@ View
 　　スライムです
 
 
+link_toメソッド(12/26追記)
+例）
+<% link_to("About", "/about") %>
 
+※第一引数に表示する文字を、第二引数に URLを書くことでリンクが作成されます
 
 
 参考ページ
 ビューの作成とデータの受け渡し - Ruby on Rails入門
 (URL)https://www.javadrive.jp/rails/ini/index5.html
-
-
-
