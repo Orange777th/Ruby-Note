@@ -1,4 +1,4 @@
-22 Ruby on Rails controller
+22 controller・ルーティング
 学習日時：2020年12月10日
 
 
@@ -8,6 +8,7 @@ controllerの作成
 　　「rails generate controller 」コントローラーを作成せよという命令文です
 　　「index」はユーザーコントローラークラス内に定義するメソッドの名前です
 　　　コントローラークラスにメソッドを定義することをアクションと呼びます
+　　　アクション メソッド はクライアントからのリクエストに応じた処理を実行するためのメソッドです 
 　　　generateは「g」と省略することが多いです
 
 
@@ -105,7 +106,12 @@ update_rails_disk_service PUT  /rails/active_storage/disk/:encoded_token(.:forma
 　URLの語尾が「users/index」が「users」に変化します
 
 
+例）posts/:idの使い方
+get "posts/index" => "posts#index"
+get "posts/:id" => "posts#show"
 
+※「posts/:id」というルーティングは「posts/index」より下に書くようにします。
+ルーティングは合致するURLを上から順に探すため、「posts/index」の上に書いてしまうと「localhost:3000/posts/index」というURLは「posts/:id」というルーティングになってしまいます。
 
 
 参考ページ
