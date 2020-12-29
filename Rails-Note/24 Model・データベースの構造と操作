@@ -1,4 +1,4 @@
-24 Ruby on Rails Model・データベースの構造と操作
+24 Model・データベースの構造と操作
 学習日時：2020年12月11日
 
 
@@ -11,10 +11,7 @@ Model
 　　レベル：level
 
 　　
-　　id	name	level
-　　1	Slime	3
-　　2	Golem	40
-　　3	Dragon	50
+￼
 　　
 
 　①ターミナルで「rails g model monster(モデル名) name:string level:integer」と入力・確定します
@@ -39,14 +36,14 @@ Model
       　create      test/models/monster_test.rb
       　create      test/fixtures/monsters.yml
 
-　③プロジェクト名>db>migrate>作成した日付_create_monsters（モデル名）.rbが作成されていることを確認します
-　　「作成した日付_create_monsters.rb」はマイグレーションファイルです
+　③プロジェクト名>db>migrate>タイムスタンプ_create_monsters（モデル名）.rbが作成されていることを確認します
+　　「タイムスタンプ_create_monsters.rb」はマイグレーションファイルです
 
 　④プロジェクト名>app>models>monsters（モデル名）.rbが作成されていることを確認します
 　　「monsters（モデル名）.rb」はモデルクラスを定義するファイルです
 
 
-　○作成した日付_create_monsters.rb
+　○タイムスタンプ_create_monsters.rb
 　　class CreateMonsters < ActiveRecord::Migration[5.2]
 　　  def change
 　　    create_table :monsters do |t|  　#monstersというテーブルを作成
@@ -143,12 +140,12 @@ CREATE TABLE IF NOT EXISTS "monsters" ("id" integer PRIMARY KEY AUTOINCREMENT NO
 
 
 
+
+
+
 　登録したデータを更新する方法
 
-　　id	name	level
-　　1	Slime	3
-　　2	Golem	40
-　　3	Dragon	50
+￼
 
 　例）idが2のデータを以下の値に更新
 　　name: ‘Witch’
@@ -179,10 +176,7 @@ CREATE TABLE IF NOT EXISTS "monsters" ("id" integer PRIMARY KEY AUTOINCREMENT NO
 　
 　指定したデータを削除する方法
 
-　　id	name	level
-　　1	Slime	3
-　　2	Golem	40
-　　3	Dragon	50
+￼
 
 　　例）idが2のデータを削除
 　　　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
@@ -211,11 +205,8 @@ CREATE TABLE IF NOT EXISTS "monsters" ("id" integer PRIMARY KEY AUTOINCREMENT NO
 
 　データベースの値をwebページに表示する方法
 
-　　id	name	level
-　　1	Slime	3
-　　2	Golem	40
-　　3	Dragon	50
-　　　　
+￼
+　　
 
 　例）以上のデータを「id,name,level」の順で出力
 　　①ターミナルで「rails c」と入力・確定してRailsコンソールを呼び出します
